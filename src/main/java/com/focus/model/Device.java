@@ -29,4 +29,6 @@ public class Device {
     private String brand;
     @OneToMany(mappedBy = "device")
     private List<Link> links;
+    @OneToMany(mappedBy = "device")
+    private List<AppDevices> app_devices;
 }
