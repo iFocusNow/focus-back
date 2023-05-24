@@ -3,6 +3,7 @@ package com.focus.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -26,4 +27,6 @@ public class Device {
     @Column(columnDefinition = "device_type")
     private Device.DeviceType type;
     private String brand;
+    @OneToMany(mappedBy = "device")
+    private List<Link> links;
 }
