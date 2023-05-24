@@ -16,7 +16,6 @@ public class Alert {
         SOLICIT_UNBLOCK,
         PHONE_TIME_EXCEEDED,
     }
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", columnDefinition = "uuid", updatable = false)

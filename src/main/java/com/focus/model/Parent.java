@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -21,4 +22,6 @@ public class Parent {
     private String password;
     private Timestamp created_at;
     private Timestamp updated_at;
+    @OneToMany(mappedBy = "parent")
+    private List<Child> children;
 }
