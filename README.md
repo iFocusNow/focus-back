@@ -30,12 +30,21 @@ If both containers are running fine and without errors, then you can check local
 
 Cuando se crea la base de datos de Docker, es necesario crear los tipos de datos antes de crear los datos con Springboot.
 
-Alert Types:
+#### Alert Types
 ```sql
 CREATE TYPE public.alert_type AS ENUM (
 	'BLOCK ENTRY',
 	'SOLICIT_UNBLOCK',
 	'PHONE_TIME_EXCEEDED');
+```
+
+#### Device Types
+```sql
+CREATE TYPE public.device_type AS ENUM (
+	'TABLET',
+	'PHONE',
+	'LAPTOP',
+	'PC');
 ```
 
 ### Reference Documentation

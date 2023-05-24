@@ -24,4 +24,6 @@ public class Child {
     private Timestamp updated_at;
     @OneToMany(mappedBy = "child")
     private List<Alert> alerts;
+    @OneToMany(mappedBy = "child")
+    private List<Device> devices;
 }
