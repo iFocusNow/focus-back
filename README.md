@@ -26,6 +26,18 @@ docker compose -f ./docker-compose.yaml up
 ```
 If both containers are running fine and without errors, then you can check localhost:8080 or connect your database to a database manager.
 
+### Antes de correr Springboot
+
+Cuando se crea la base de datos de Docker, es necesario crear los tipos de datos antes de crear los datos con Springboot.
+
+Alert Types:
+```sql
+CREATE TYPE public.alert_type AS ENUM (
+	'BLOCK ENTRY',
+	'SOLICIT_UNBLOCK',
+	'PHONE_TIME_EXCEEDED');
+```
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
