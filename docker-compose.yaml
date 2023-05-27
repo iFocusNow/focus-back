@@ -1,7 +1,7 @@
 services:
   db:
     ports:
-      - 5432:5432
+      - 5433:5432
     container_name: postgres_container
     image: postgres
     environment:
