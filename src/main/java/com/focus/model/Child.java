@@ -23,11 +23,10 @@ public class Child {
     private String child_code;
     private Timestamp created_at;
     private Timestamp updated_at;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "child")
     private List<Alert> alerts;
-
-
+    @JsonIgnore
     @OneToMany(mappedBy = "child")
     private List<Device> devices;
 }

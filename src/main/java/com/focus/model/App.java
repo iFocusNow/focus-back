@@ -1,5 +1,6 @@
 package com.focus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class App {
     private UUID id;
     private String name;
     private String logo_url;
+    @JsonIgnore
     @OneToMany(mappedBy = "app")
     private List<AppDevices> app_devices;
 }
