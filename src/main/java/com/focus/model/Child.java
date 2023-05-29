@@ -1,5 +1,6 @@
 package com.focus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,8 +23,11 @@ public class Child {
     private String child_code;
     private Timestamp created_at;
     private Timestamp updated_at;
+
     @OneToMany(mappedBy = "child")
     private List<Alert> alerts;
+
+
     @OneToMany(mappedBy = "child")
     private List<Device> devices;
 }

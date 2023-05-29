@@ -1,5 +1,6 @@
 package com.focus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", columnDefinition = "uuid", updatable = false)
     private UUID id;
+
     @ManyToOne
     @JoinColumn(name = "child_id")
     private Child child;
