@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface DeviceRepository extends JpaRepository<Device, UUID> {
-    @Query(value = "SELECT * FROM devices WHERE child_id =?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM devices d WHERE d.child_id =?1", nativeQuery = true)
     List<Device> findByChildId(UUID id);
 }
