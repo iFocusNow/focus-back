@@ -15,4 +15,8 @@ public class ParentServiceImpl implements ParentService {
         List<Parent> parents = repo.findAll();
         return parents;
     }
+
+    public Parent registerParent(Parent parent){
+        return repo.save(parent);
+    }
 }

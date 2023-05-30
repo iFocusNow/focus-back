@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ParentService {
     public List<Parent> getAllParents();
+
+    public Parent registerParent(Parent parent);
 }
