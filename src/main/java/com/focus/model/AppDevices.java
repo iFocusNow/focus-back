@@ -1,5 +1,6 @@
 package com.focus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class AppDevices {
     @ManyToOne
     @JoinColumn(name = "app_id")
     private App app;
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "blockperiod_id")
     private BlockPeriod block_period;

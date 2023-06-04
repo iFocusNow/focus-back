@@ -1,5 +1,6 @@
 package com.focus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class Parent {
     private String password;
     private Timestamp created_at;
     private Timestamp updated_at;
+    @JsonIgnore
     @OneToMany(mappedBy = "parent")
     private List<Child> children;
 }

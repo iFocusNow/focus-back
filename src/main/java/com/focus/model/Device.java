@@ -29,8 +29,10 @@ public class Device {
     @Column(columnDefinition = "device_type")
     private Device.DeviceType type;
     private String brand;
+    @JsonIgnore
     @OneToMany(mappedBy = "device")
     private List<Link> links;
+    @JsonIgnore
     @OneToMany(mappedBy = "device")
     private List<AppDevices> app_devices;
 }
