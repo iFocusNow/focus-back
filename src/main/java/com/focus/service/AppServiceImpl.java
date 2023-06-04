@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AppServiceImpl implements AppService{
@@ -17,5 +18,12 @@ public class AppServiceImpl implements AppService{
         apps = appRepository.findAll();
         return apps;
     }
+
+    public App listById(UUID id) {
+        App app;
+        app = appRepository.findById(id).get();
+        return app;
+    }
+
 
 }
