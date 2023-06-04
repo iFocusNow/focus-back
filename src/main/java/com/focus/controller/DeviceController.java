@@ -1,5 +1,6 @@
 package com.focus.controller;
 
+import com.focus.dtos.DTODeviceSummary;
 import com.focus.model.Device;
 import com.focus.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ public class DeviceController {
     @Autowired
     DeviceService deviceService;
     @GetMapping("/devices/id/{id}")
-    public ResponseEntity<List<Device>> getDeviceById(@PathVariable("id")UUID id){
-        List<Device> device = deviceService.getDeviceByChildID(id);
-        return new ResponseEntity<List<Device>>(device, HttpStatus.OK);
+    public ResponseEntity<List<DTODeviceSummary>> getDeviceSummary(@PathVariable("id")UUID id){
+        List<DTODeviceSummary> dtoDeviceSummaries = deviceService.listDeviceSummary(id);
+        return new ResponseEntity<List<DTODeviceSummary>>(dtoDeviceSummaries, HttpStatus.OK);
 
     }
 }
