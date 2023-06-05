@@ -35,11 +35,9 @@ public class Device {
     @OneToMany(mappedBy = "device")
     private List<AppDevice> app_devices;
 
-    public Device(Child child, DeviceType type, String brand, List<Link> links, List<AppDevice> app_devices) {
+    public Device(Child child, DeviceType type, String brand) {
         this.child = child;
         this.type = type;
         this.brand = brand;
-        this.links = links;
-        this.app_devices = app_devices;
     }
 }
