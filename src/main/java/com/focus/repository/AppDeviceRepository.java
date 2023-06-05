@@ -10,4 +10,7 @@ import java.util.UUID;
 public interface AppDeviceRepository extends JpaRepository<AppDevice, UUID> {
     @Query(value = "SELECT * FROM app_devices WHERE device_id = ?1", nativeQuery = true)
     List<AppDevice> findAllByDevice(UUID device_id);
+
+    @Query(value = "SELECT * FROM app_devices WHERE device_id = ?1 AND app_id = ?2", nativeQuery = true)
+    List<AppDevice> findByDeviceAndApp(UUID device_id, UUID app_id);
 }

@@ -39,4 +39,15 @@ public class AppDeviceServiceImpl implements AppDeviceService {
         }
         return appDeviceDTOs;
     }
+
+    public boolean deleteAppDevice(UUID device_id, UUID app_id) {
+        List<AppDevice> appDevices = repo.findByDeviceAndApp(device_id, app_id);
+        if (!appDevices.isEmpty()) {
+            for (AppDevice appDevice: appDevices) {
+                repo.delete(appDevice);
+            }
+            return true;
+        }
+        return false;
+    }
 }
