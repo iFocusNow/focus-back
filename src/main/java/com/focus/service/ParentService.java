@@ -10,7 +10,6 @@ import java.util.UUID;
 
 public interface ParentService {
     public List<ParentDTO> getAllParents();
-    public Parent getParentById(UUID parentId);
-    public List<Child> getChildrenByParentId(UUID parentId);
-    public List<Alert> getNotificationsByParentId(UUID parentId);
+    public ParentDTO getParentById(UUID parentId);
+
 }
