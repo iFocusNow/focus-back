@@ -2,12 +2,14 @@ package com.focus.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
 @Entity
 @Table(name = "block_periods")
+@NoArgsConstructor
 public class BlockPeriod {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

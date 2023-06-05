@@ -20,8 +20,14 @@ public class AppDevices {
     @ManyToOne
     @JoinColumn(name = "app_id")
     private App app;
-    @JsonIgnore
+
     @OneToOne
     @JoinColumn(name = "blockperiod_id")
     private BlockPeriod block_period;
+
+    public AppDevices(Device device, App app, BlockPeriod block_period) {
+        this.device = device;
+        this.app = app;
+        this.block_period = block_period;
+    }
 }
