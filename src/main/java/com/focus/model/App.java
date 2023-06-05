@@ -2,6 +2,7 @@ package com.focus.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "apps")
+@NoArgsConstructor
 public class App {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -17,5 +19,10 @@ public class App {
     private String name;
     private String logo_url;
     @OneToMany(mappedBy = "app")
-    private List<AppDevices> app_devices;
+    private List<AppDevice> app_devices;
+
+    public App(String name, String logo_url) {
+        this.name = name;
+        this.logo_url = logo_url;
+    }
 }

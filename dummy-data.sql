@@ -14,7 +14,7 @@ VALUES('c9f187ed-d1ae-437d-990d-6e07957d309f', '2023-05-28 18:45:00', 'michael@e
 
 INSERT INTO public.parents
 (id, created_at, email, last_name_father, last_name_mother, "password", photo_url, updated_at)
-VALUES('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', '2023-05-28 21:00:00', 'sarah@example.com', 'Johnson', 'Smith', 'abc123', 'https://example.com/sarah.jpg', '2023-05-28 21:00:00');
+VALUES('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', '2023-05-28 21:01:00', 'sarah@example.com', 'Johnson', 'Smith', 'abc123', 'https://example.com/sarah.jpg', '2023-05-28 21:00:00');
 
 INSERT INTO public.parents
 (id, created_at, email, last_name_father, last_name_mother, "password", photo_url, updated_at)
