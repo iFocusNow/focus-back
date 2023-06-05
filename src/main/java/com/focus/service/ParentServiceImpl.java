@@ -4,19 +4,22 @@ import com.focus.dto.ParentDTO;
 import com.focus.model.Parent;
 import com.focus.repository.ParentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 public class ParentServiceImpl implements ParentService {
     @Autowired
     private ParentRepository repo;
+
     public List<ParentDTO> getAllParents() {
         List<Parent> parents = repo.findAll();
         List<ParentDTO> parentDTOs = new ArrayList<>();
-
         for (Parent parent: parents) {
             ParentDTO parentDTO = new ParentDTO(
                     parent.getId(),
@@ -31,5 +34,11 @@ public class ParentServiceImpl implements ParentService {
             parentDTOs.add(parentDTO);
         }
         return parentDTOs;
+    }
+
+    public Parent registerParent(Parent parent){
+        String encodedPassword = BCrypt.hashpw(parent.getPassword(), BCrypt.gensalt());
+        parent.setPassword(encodedPassword);
+        return repo.save(parent);
     }
 }
