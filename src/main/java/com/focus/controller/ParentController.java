@@ -32,7 +32,7 @@ public class ParentController {
     }
     @PostMapping("/register-parent")
     public ResponseEntity<Parent> registerParent(@RequestBody Parent parent) {
-        Parent registeredParent = service.registerParent(parent);
+        Parent registeredParent = parentService.registerParent(parent);
         return new ResponseEntity<>(registeredParent, HttpStatus.CREATED);
     }
 }

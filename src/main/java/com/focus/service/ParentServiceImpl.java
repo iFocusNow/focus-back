@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,10 +17,9 @@ public class ParentServiceImpl implements ParentService {
     @Autowired
     private ParentRepository repo;
 
-    public List<Parent> getAllParents() {
+    public List<ParentDTO> getAllParents() {
         List<Parent> parents = repo.findAll();
         List<ParentDTO> parentDTOs = new ArrayList<>();
-
         for (Parent parent: parents) {
             ParentDTO parentDTO = new ParentDTO(
                     parent.getId(),
