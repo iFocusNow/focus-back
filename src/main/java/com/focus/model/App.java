@@ -19,5 +19,5 @@ public class App {
     private String logo_url;
     @JsonIgnore
     @OneToMany(mappedBy = "app")
-    private List<AppDevices> app_devices;
+    private List<AppDevice> app_devices;
 }

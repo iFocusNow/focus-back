@@ -1,7 +1,7 @@
 package com.focus.service;
 
 import com.focus.model.App;
-import com.focus.model.AppDevices;
+import com.focus.model.AppDevice;
 import com.focus.model.BlockPeriod;
 import com.focus.model.Device;
 import com.focus.repository.AppDeviceRepository;
@@ -24,13 +24,13 @@ public class AppDeviceServiceImpl implements AppDeviceService {
     @Autowired
     BlockPeriodRepository blockPeriodRepository;
 
-    public AppDevices save(AppDevices appDevices) {
+    public AppDevice save(AppDevice appDevices) {
         App appFound = appRepository.findById(appDevices.getApp().getId()).get();
         BlockPeriod blockPeriodFound = blockPeriodRepository.findById(appDevices.getBlock_period().getId()).get();
         Device deviceFound = deviceRepository.findById(appDevices.getDevice().getId()).get();
 
-        AppDevices newAppDevices = new AppDevices(deviceFound,appFound,blockPeriodFound);
-        AppDevices savedAppDevices = appDeviceRepository.save(newAppDevices);
+        AppDevice newAppDevices = new AppDevice(deviceFound,appFound,blockPeriodFound);
+        AppDevice savedAppDevices = appDeviceRepository.save(newAppDevices);
         return savedAppDevices;
 
     }

@@ -34,5 +34,5 @@ public class Device {
     private List<Link> links;
     @JsonIgnore
     @OneToMany(mappedBy = "device")
-    private List<AppDevices> app_devices;
+    private List<AppDevice> app_devices;
 }

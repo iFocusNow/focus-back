@@ -1,7 +1,7 @@
 package com.focus.service;
 
-import com.focus.model.AppDevices;
+import com.focus.model.AppDevice;
 
 public interface AppDeviceService {
-    public AppDevices save(AppDevices appDevices);
+    public AppDevice save(AppDevice appDevices);
 }
