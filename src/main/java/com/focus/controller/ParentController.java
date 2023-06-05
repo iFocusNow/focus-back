@@ -44,10 +44,10 @@ public class ParentController {
         return new ResponseEntity<>(parentDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/parents/{parentId}/children")
-    public ResponseEntity<List<Child>> getParentChildren(@PathVariable UUID parentId) {
-        List<Child> children = service.getChildrenByParentId(parentId);
-        return new ResponseEntity<>(children, HttpStatus.OK);
+    @GetMapping("/parents/{parentId}/notifications")
+    public ResponseEntity<List<Alert>> getParentNotifications(@PathVariable UUID parentId) {
+        List<Alert> notifications = service.getNotificationsByParentId(parentId);
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
 }

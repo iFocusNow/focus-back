@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface ParentService {
     public List<ParentDTO> getAllParents();
     public ParentDTO getParentById(UUID parentId);
-    public List<Child> getChildrenByParentId(UUID parentId);
+    public List<Alert> getNotificationsByParentId(UUID parentId);
 }

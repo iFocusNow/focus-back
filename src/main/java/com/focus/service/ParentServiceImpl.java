@@ -61,9 +61,19 @@ public class ParentServiceImpl implements ParentService {
     }
 
     @Override
-    public List<Child> getChildrenByParentId(UUID parentId) {
-        ParentDTO parent = getParentById(parentId);
-        return parent.getChildren();
+    public List<Alert> getNotificationsByParentId(UUID parentId) {
+        Parent parent = repo.findById(parentId)
+                .orElseThrow(() -> new RuntimeException("Parent not found"));
+
+        List<Child> children = parent.getChildren();
+
+        List<Alert> notifications = new ArrayList<>();
+        for (Child child : children) {
+            List<Alert> childAlerts = child.getAlerts();
+            notifications.addAll(childAlerts);
+        }
+
+        return notifications;
     }
 
 }
