@@ -2,6 +2,7 @@ package com.focus.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "alerts")
+@NoArgsConstructor
 public class Alert {
     public enum AlertType {
         BLOCK_ENTRY,

@@ -2,6 +2,7 @@ package com.focus.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "parents")
+@NoArgsConstructor
 public class Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

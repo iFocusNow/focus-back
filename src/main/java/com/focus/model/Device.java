@@ -2,6 +2,7 @@ package com.focus.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +10,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "devices")
+@NoArgsConstructor
 public class Device {
     public enum DeviceType {
         TABLET,
@@ -30,5 +32,5 @@ public class Device {
     @OneToMany(mappedBy = "device")
     private List<Link> links;
     @OneToMany(mappedBy = "device")
-    private List<AppDevices> app_devices;
+    private List<AppDevice> app_devices;
 }
