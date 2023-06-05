@@ -38,4 +38,13 @@ public class LinkServiceImpl implements LinkService {
         }
         return linkBlockPeriodDTOs;
     }
+
+    public boolean deleteLink(UUID id) {
+        if(repo.findById(id).isEmpty()) {
+            return false;
+        }
+
+        repo.deleteById(id);
+        return true;
+    }
 }

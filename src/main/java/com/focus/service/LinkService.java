@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface LinkService {
     public List<LinkBlockPeriodDTO> getAllLinkBlockPeriods(UUID device_id);
+    public boolean deleteLink(UUID id);
 }
