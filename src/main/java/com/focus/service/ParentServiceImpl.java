@@ -36,9 +36,15 @@ public class ParentServiceImpl implements ParentService {
         return parentDTOs;
     }
 
-    public Parent registerParent(Parent parent){
+    public Parent registerParent(Parent parent) {
+        Parent existingParent = repo.findByEmail(parent.getEmail());
+        if (existingParent != null) {
+            throw new RuntimeException("El correo electrónico ya está en uso");
+        }
+
         String encodedPassword = BCrypt.hashpw(parent.getPassword(), BCrypt.gensalt());
         parent.setPassword(encodedPassword);
         return repo.save(parent);
     }
+
 }
