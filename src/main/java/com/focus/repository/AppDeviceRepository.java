@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.UUID;
 
-public interface AppDeviceRepository  extends JpaRepository<AppDevice, UUID> {
+public interface AppDeviceRepository extends JpaRepository<AppDevice, UUID> {
     @Query(value = "SELECT * FROM app_devices WHERE device_id = ?1", nativeQuery = true)
     List<AppDevice> findAllByDevice(UUID device_id);
 }
