@@ -30,4 +30,11 @@ public class Alert {
     private AlertType type;
     private Timestamp created_at;
     private Timestamp updated_at;
+
+    public Alert(Child child, AlertType type, Timestamp created_at, Timestamp updated_at) {
+        this.child = child;
+        this.type = type;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
 }

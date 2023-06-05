@@ -20,4 +20,10 @@ public class App {
     private String logo_url;
     @OneToMany(mappedBy = "app")
     private List<AppDevice> app_devices;
+
+    public App(String name, String logo_url, List<AppDevice> app_devices) {
+        this.name = name;
+        this.logo_url = logo_url;
+        this.app_devices = app_devices;
+    }
 }

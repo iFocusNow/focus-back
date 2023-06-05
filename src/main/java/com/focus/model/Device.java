@@ -12,6 +12,7 @@ import java.util.UUID;
 @Table(name = "devices")
 @NoArgsConstructor
 public class Device {
+
     public enum DeviceType {
         TABLET,
         PHONE,
@@ -33,4 +34,12 @@ public class Device {
     private List<Link> links;
     @OneToMany(mappedBy = "device")
     private List<AppDevice> app_devices;
+
+    public Device(Child child, DeviceType type, String brand, List<Link> links, List<AppDevice> app_devices) {
+        this.child = child;
+        this.type = type;
+        this.brand = brand;
+        this.links = links;
+        this.app_devices = app_devices;
+    }
 }

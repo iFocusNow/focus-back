@@ -24,4 +24,10 @@ public class AppDevice {
     @OneToOne
     @JoinColumn(name = "blockperiod_id")
     private BlockPeriod block_period;
+
+    public AppDevice(Device device, App app, BlockPeriod block_period) {
+        this.device = device;
+        this.app = app;
+        this.block_period = block_period;
+    }
 }

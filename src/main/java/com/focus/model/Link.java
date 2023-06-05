@@ -23,4 +23,11 @@ public class Link {
     private BlockPeriod block_period;
     private String name;
     private String url;
+
+    public Link(Device device, BlockPeriod block_period, String name, String url) {
+        this.device = device;
+        this.block_period = block_period;
+        this.name = name;
+        this.url = url;
+    }
 }

@@ -28,4 +28,14 @@ public class Child {
     private List<Alert> alerts;
     @OneToMany(mappedBy = "child")
     private List<Device> devices;
+
+    public Child(Parent parent, String name, String child_code, Timestamp created_at, Timestamp updated_at, List<Alert> alerts, List<Device> devices) {
+        this.parent = parent;
+        this.name = name;
+        this.child_code = child_code;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.alerts = alerts;
+        this.devices = devices;
+    }
 }
