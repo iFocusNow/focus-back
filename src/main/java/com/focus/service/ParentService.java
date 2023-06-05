@@ -9,4 +9,5 @@ public interface ParentService {
     public List<ParentDTO> getAllParents();
 
     public Parent registerParent(Parent parent);
+    public boolean authenticateParent(String email, String password);
 }

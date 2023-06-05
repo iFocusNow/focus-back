@@ -1,6 +1,7 @@
 package com.focus.controller;
 
 
+import com.focus.dto.ParentAuthDTO;
 import com.focus.dto.ParentDTO;
 import com.focus.model.Parent;
 import com.focus.repository.ParentRepository;
@@ -34,5 +35,14 @@ public class ParentController {
     public ResponseEntity<Parent> registerParent(@RequestBody Parent parent) {
         Parent registeredParent = parentService.registerParent(parent);
         return new ResponseEntity<>(registeredParent, HttpStatus.CREATED);
+    }
+    @PostMapping("/parents/authenticate-parent")
+    public ResponseEntity<String> authenticateParent(@RequestBody ParentAuthDTO parentAuthDTO) {
+        boolean authenticated = parentService.authenticateParent(parentAuthDTO.getEmail(), parentAuthDTO.getPassword());
+        if (authenticated) {
+            return ResponseEntity.ok("Authentication successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
+        }
     }
 }

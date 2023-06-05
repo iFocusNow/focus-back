@@ -41,4 +41,12 @@ public class ParentServiceImpl implements ParentService {
         parent.setPassword(encodedPassword);
         return repo.save(parent);
     }
+
+    public boolean authenticateParent(String email, String password) {
+        Parent parent = repo.findByEmail(email);
+        if (parent != null) {
+            return BCrypt.checkpw(password, parent.getPassword());
+        }
+        return false;
+    }
 }
