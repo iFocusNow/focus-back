@@ -24,6 +24,7 @@ public class LinkServiceImpl implements LinkService {
                     link.getId(),
                     link.getName(),
                     link.getUrl(),
+                    link.getBlock_period().getId(),
                     link.getBlock_period().getIs_monday(),
                     link.getBlock_period().getIs_tuesday(),
                     link.getBlock_period().getIs_wednesday(),

@@ -20,12 +20,20 @@ public class AppDeviceServiceImpl implements AppDeviceService {
         List<AppDeviceDTO> appDeviceDTOs = new ArrayList<>();
 
         for (AppDevice appDevice: appDevices) {
-            BlockPeriod blockPeriod = appDevice.getBlock_period();
             AppDeviceDTO appDeviceDTO = new AppDeviceDTO(
                     appDevice.getId(),
-                    appDevice.getDevice().getId(),
                     appDevice.getApp().getId(),
-                    blockPeriod.getId()
+                    appDevice.getApp().getLogo_url(),
+                    appDevice.getApp().getName(),
+                    appDevice.getBlock_period().getId(),
+                    appDevice.getBlock_period().getIs_monday(),
+                    appDevice.getBlock_period().getIs_tuesday(),
+                    appDevice.getBlock_period().getIs_wednesday(),
+                    appDevice.getBlock_period().getIs_thursday(),
+                    appDevice.getBlock_period().getIs_friday(),
+                    appDevice.getBlock_period().getIs_saturday(),
+                    appDevice.getBlock_period().getIs_sunday()
+
             );
             appDeviceDTOs.add(appDeviceDTO);
         }

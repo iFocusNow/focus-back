@@ -11,6 +11,7 @@ public class LinkBlockPeriodDTO {
     private UUID id;
     private String name;
     private String url;
+    private UUID block_period_id;
     private Boolean is_monday;
     private Boolean is_tuesday;
     private Boolean is_wednesday;
