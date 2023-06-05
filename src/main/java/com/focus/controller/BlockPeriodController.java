@@ -20,4 +20,10 @@ public class BlockPeriodController {
         boolean isEdited = blockPeriodService.editBlockPeriod(id, blockPeriod);
         return new ResponseEntity<>(isEdited, HttpStatus.OK);
     }
+
+    @PostMapping("/blockperiod")
+    public ResponseEntity<BlockPeriod> createBlockPeriod (@RequestBody BlockPeriod blockPeriod) {
+        BlockPeriod savedBlockPeriod = blockPeriodService.save(blockPeriod);
+        return new ResponseEntity<BlockPeriod>(savedBlockPeriod, HttpStatus.CREATED);
+    }
 }

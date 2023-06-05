@@ -30,4 +30,18 @@ public class BlockPeriodServiceImpl implements BlockPeriodService {
         repo.save(foundBlockPeriod);
         return true;
     }
+
+    public BlockPeriod save(BlockPeriod blockPeriod) {
+        BlockPeriod newBlockPeriod = new BlockPeriod(blockPeriod.getIs_monday(),
+                                        blockPeriod.getIs_tuesday(),
+                                        blockPeriod.getIs_wednesday(),
+                                        blockPeriod.getIs_thursday(),
+                                        blockPeriod.getIs_friday(),
+                                        blockPeriod.getIs_saturday(),
+                                        blockPeriod.getIs_sunday());
+        BlockPeriod savedBlockPeriod = repo.save(newBlockPeriod);
+        return  savedBlockPeriod;
+
+    }
+
 }
