@@ -43,4 +43,11 @@ public class ParentController {
         ParentDTO parentDTO = service.getParentById(parentId);
         return new ResponseEntity<>(parentDTO, HttpStatus.OK);
     }
+
+    @GetMapping("/parents/{parentId}/children")
+    public ResponseEntity<List<Child>> getParentChildren(@PathVariable UUID parentId) {
+        List<Child> children = service.getChildrenByParentId(parentId);
+        return new ResponseEntity<>(children, HttpStatus.OK);
+    }
+
 }

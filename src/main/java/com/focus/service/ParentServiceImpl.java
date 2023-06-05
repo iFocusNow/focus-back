@@ -32,7 +32,8 @@ public class ParentServiceImpl implements ParentService {
                     parent.getPhoto_url(),
                     parent.getPassword(),
                     parent.getCreated_at(),
-                    parent.getUpdated_at()
+                    parent.getUpdated_at(),
+                    parent.getChildren()
             );
             parentDTOs.add(parentDTO);
         }
@@ -52,10 +53,17 @@ public class ParentServiceImpl implements ParentService {
                 parent.getPhoto_url(),
                 parent.getPassword(),
                 parent.getCreated_at(),
-                parent.getUpdated_at()
+                parent.getUpdated_at(),
+                parent.getChildren()
         );
 
         return parentDTO;
+    }
+
+    @Override
+    public List<Child> getChildrenByParentId(UUID parentId) {
+        ParentDTO parent = getParentById(parentId);
+        return parent.getChildren();
     }
 
 }

@@ -1,10 +1,12 @@
 package com.focus.dto;
 
+import com.focus.model.Child;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.UUID;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,4 +19,5 @@ public class ParentDTO {
     private String password;
     private Timestamp created_at;
     private Timestamp updated_at;
+    private List<Child> children;
 }
