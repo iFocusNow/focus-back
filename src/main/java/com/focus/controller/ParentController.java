@@ -28,7 +28,12 @@ public class ParentController {
     }
     @PostMapping("/parents/register-parent")
     public ResponseEntity<Parent> registerParent(@RequestBody Parent parent) {
-        Parent registeredParent = parentService.registerParent(parent);
-        return new ResponseEntity<>(registeredParent, HttpStatus.CREATED);
+        try {
+            Parent registeredParent = parentService.registerParent(parent);
+            return new ResponseEntity<>(registeredParent, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
+
 }
