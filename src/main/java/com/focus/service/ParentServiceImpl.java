@@ -1,6 +1,9 @@
 package com.focus.service;
 
+import com.focus.dto.ParentAccountDTO;
 import com.focus.dto.ParentDTO;
+import com.focus.model.Alert;
+import com.focus.model.Child;
 import com.focus.model.Parent;
 import com.focus.repository.ParentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -20,7 +24,7 @@ public class ParentServiceImpl implements ParentService {
     public List<ParentDTO> getAllParents() {
         List<Parent> parents = repo.findAll();
         List<ParentDTO> parentDTOs = new ArrayList<>();
-        for (Parent parent: parents) {
+        for (Parent parent : parents) {
             ParentDTO parentDTO = new ParentDTO(
                     parent.getId(),
                     parent.getLast_name_mother(),
@@ -54,4 +58,20 @@ public class ParentServiceImpl implements ParentService {
         }
         return false;
     }
+
+    public ParentAccountDTO getParentById(UUID parentId) {
+        Parent parent = repo.findById(parentId)
+                .orElseThrow(() -> new RuntimeException("Parent not found"));
+
+        ParentAccountDTO parentDTO = new ParentAccountDTO(
+                parent.getId(),
+                parent.getLast_name_mother(),
+                parent.getLast_name_father(),
+                parent.getEmail(),
+                parent.getPhoto_url()
+        );
+
+        return parentDTO;
+    }
 }
+
