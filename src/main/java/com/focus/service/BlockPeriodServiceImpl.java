@@ -31,7 +31,15 @@ public class BlockPeriodServiceImpl implements BlockPeriodService {
         return true;
     }
 
-    public BlockPeriod save(BlockPeriod blockPeriod) {
+    public boolean save(BlockPeriod blockPeriod) {
+        if (blockPeriod.getIs_monday() == null) return false;
+        if (blockPeriod.getIs_tuesday() == null) return false;
+        if (blockPeriod.getIs_wednesday() == null) return false;
+        if (blockPeriod.getIs_thursday() == null) return false;
+        if (blockPeriod.getIs_friday() == null) return false;
+        if (blockPeriod.getIs_saturday() == null) return false;
+        if (blockPeriod.getIs_sunday() == null) return false;
+
         BlockPeriod newBlockPeriod = new BlockPeriod(blockPeriod.getIs_monday(),
                                         blockPeriod.getIs_tuesday(),
                                         blockPeriod.getIs_wednesday(),
@@ -39,9 +47,7 @@ public class BlockPeriodServiceImpl implements BlockPeriodService {
                                         blockPeriod.getIs_friday(),
                                         blockPeriod.getIs_saturday(),
                                         blockPeriod.getIs_sunday());
-        BlockPeriod savedBlockPeriod = repo.save(newBlockPeriod);
-        return  savedBlockPeriod;
-
+        repo.save(newBlockPeriod);
+        return true;
     }
-
 }
