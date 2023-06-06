@@ -2,6 +2,7 @@ package com.focus.service;
 
 import com.focus.dto.ParentAccountDTO;
 import com.focus.dto.ParentDTO;
+import com.focus.dto.ChildDTO;
 import com.focus.model.Child;
 import com.focus.model.Parent;
 import com.focus.model.Alert;
@@ -13,5 +14,7 @@ public interface ParentService {
     public List<ParentDTO> getAllParents();
     public ParentAccountDTO getParentById(UUID parentId);
     public Parent registerParent(Parent parent);
+    List<ChildDTO> getChildrenByParentId(UUID parentId);
+    public ChildDTO getChildById(UUID parentId, UUID childId);
     public boolean authenticateParent(String email, String password);
 }
