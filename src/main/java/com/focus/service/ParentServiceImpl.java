@@ -86,38 +86,12 @@ public class ParentServiceImpl implements ParentService {
                     child.getId(),
                     child.getParent().getId(),
                     child.getName(),
-                    child.getChild_code(),
                     child.getCreated_at(),
                     child.getUpdated_at()
             );
             childrenDTOs.add(childDTO);
         }
         return childrenDTOs;
-    }
-
-    @Override
-    public ChildDTO getChildren(UUID parentId, UUID childId) {
-        Parent parent = repo.findById(parentId)
-                .orElseThrow(() -> new RuntimeException("Parent not found"));
-
-        Child child = parent.getChildren().stream()
-                .filter(c -> c.getId().equals(childId))
-                .findFirst()
-                .orElse(null);
-
-        if (child != null) {
-            ChildDTO childDTO = new ChildDTO(
-                    child.getId(),
-                    child.getParent().getId(),
-                    child.getName(),
-                    child.getChild_code(),
-                    child.getCreated_at(),
-                    child.getUpdated_at()
-            );
-            return childDTO;
-        } else {
-            return null;
-        }
     }
 
 }

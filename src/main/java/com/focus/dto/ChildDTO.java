@@ -12,7 +12,6 @@ public class ChildDTO {
     private UUID id;
     private UUID parentId;
     private String name;
-    private String child_code;
     private Timestamp created_at;
     private Timestamp updated_at;
 }
