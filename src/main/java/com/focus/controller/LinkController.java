@@ -1,6 +1,7 @@
 package com.focus.controller;
 
 import com.focus.dto.LinkBlockPeriodDTO;
+import com.focus.model.Link;
 import com.focus.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,4 +29,11 @@ public class LinkController {
         boolean isDeleted = linkService.deleteLink(id);
         return new ResponseEntity<>(isDeleted, HttpStatus.OK);
     }
+
+    @PostMapping("/links/create")
+    public ResponseEntity<Boolean> createLink(@RequestBody Link link){
+        boolean isCreated = linkService.save(link);
+        return new ResponseEntity<>(isCreated,HttpStatus.CREATED);
+    }
+
 }
