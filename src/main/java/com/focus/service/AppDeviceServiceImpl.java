@@ -67,18 +67,22 @@ public class AppDeviceServiceImpl implements AppDeviceService {
     }
 
     public boolean save(AppDevice appDevice) {
+        try {
 
-        if(appRepository.findById(appDevice.getApp().getId()).isEmpty()) return false;
-        if(blockPeriodRepository.findById(appDevice.getBlock_period().getId()).isEmpty()) return false;
-        if (deviceRepository.findById(appDevice.getDevice().getId()).isEmpty()) return false;
+            if (appRepository.findById(appDevice.getApp().getId()).isEmpty()) return false;
+            if (blockPeriodRepository.findById(appDevice.getBlock_period().getId()).isEmpty()) return false;
+            if (deviceRepository.findById(appDevice.getDevice().getId()).isEmpty()) return false;
 
-        App appFound = appRepository.findById(appDevice.getApp().getId()).get();
-        BlockPeriod blockPeriodFound = blockPeriodRepository.findById(appDevice.getBlock_period().getId()).get();
-        Device deviceFound = deviceRepository.findById(appDevice.getDevice().getId()).get();
+            App appFound = appRepository.findById(appDevice.getApp().getId()).get();
+            BlockPeriod blockPeriodFound = blockPeriodRepository.findById(appDevice.getBlock_period().getId()).get();
+            Device deviceFound = deviceRepository.findById(appDevice.getDevice().getId()).get();
 
-        AppDevice newAppDevice = new AppDevice(deviceFound,appFound,blockPeriodFound);
-        AppDevice savedAppDevice = repo.save(newAppDevice);
-        return true;
+            AppDevice newAppDevice = new AppDevice(deviceFound, appFound, blockPeriodFound);
+            AppDevice savedAppDevice = repo.save(newAppDevice);
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
     }
 
 
