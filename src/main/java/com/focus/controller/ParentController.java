@@ -57,7 +57,7 @@ public class ParentController {
         return new ResponseEntity<>(parentDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/parents/{parentId}/alerts")
+    @GetMapping("/{parentId}/alerts")
     public ResponseEntity<List<AlertDTO>> getParentAlerts(@PathVariable UUID parentId) {
         List<AlertDTO> alertDTOs = service.getParentAlerts(parentId);
         return new ResponseEntity<>(alertDTOs, HttpStatus.OK);
