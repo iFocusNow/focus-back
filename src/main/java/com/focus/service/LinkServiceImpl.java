@@ -60,14 +60,20 @@ public class LinkServiceImpl implements LinkService {
     }
 
     public boolean save(Link link) {
-        if(deviceRepository.findById(link.getDevice().getId()).isEmpty()) return false;
-        if(blockPeriodRepository.findById(link.getBlock_period().getId()).isEmpty()) return false;
+        try {
+            if(deviceRepository.findById(link.getDevice().getId()).isEmpty()) return false;
+            if(blockPeriodRepository.findById(link.getBlock_period().getId()).isEmpty()) return false;
+            if(link.getName().isEmpty()) return false;
+            if(link.getUrl().isEmpty()) return false;
 
-        Device deviceFound = deviceRepository.findById(link.getDevice().getId()).get();
-        BlockPeriod blockPeriodFound = blockPeriodRepository.findById(link.getBlock_period().getId()).get();
+            Device deviceFound = deviceRepository.findById(link.getDevice().getId()).get();
+            BlockPeriod blockPeriodFound = blockPeriodRepository.findById(link.getBlock_period().getId()).get();
 
-        Link newlink = new Link(deviceFound,blockPeriodFound,link.getName(),link.getUrl());
-        Link savedLink = repo.save(newlink);
-        return true;
+            Link newlink = new Link(deviceFound, blockPeriodFound, link.getName(), link.getUrl());
+            Link savedLink = repo.save(newlink);
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
     }
 }
