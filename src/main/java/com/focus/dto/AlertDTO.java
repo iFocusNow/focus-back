@@ -10,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AlertDTO {
     private UUID id;
-    private UUID childId;
+    private UUID parentId;
     private String type;
     private Timestamp created_at;
     private Timestamp updated_at;

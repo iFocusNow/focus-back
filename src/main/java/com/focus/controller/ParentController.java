@@ -63,5 +63,4 @@ public class ParentController {
         return new ResponseEntity<>(alertDTOs, HttpStatus.OK);
     }
 
-
 }
