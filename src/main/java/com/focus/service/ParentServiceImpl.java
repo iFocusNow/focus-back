@@ -76,7 +76,7 @@ public class ParentServiceImpl implements ParentService {
     }
 
     @Override
-    public List<ChildDTO> getChildrenByParentId(UUID parentId) {
+    public List<ChildDTO> getParentChildren(UUID parentId) {
         Parent parent = repo.findById(parentId)
                 .orElseThrow(() -> new RuntimeException("Parent not found"));
 
@@ -96,7 +96,7 @@ public class ParentServiceImpl implements ParentService {
     }
 
     @Override
-    public ChildDTO getChildById(UUID parentId, UUID childId) {
+    public ChildDTO getChildren(UUID parentId, UUID childId) {
         Parent parent = repo.findById(parentId)
                 .orElseThrow(() -> new RuntimeException("Parent not found"));
 

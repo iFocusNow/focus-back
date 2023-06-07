@@ -58,14 +58,14 @@ public class ParentController {
     }
 
     @GetMapping("/parents/{parentId}/children")
-    public ResponseEntity<List<ChildDTO>> getChildrenByParentId(@PathVariable UUID parentId) {
-        List<ChildDTO> childrenDTOs = service.getChildrenByParentId(parentId);
+    public ResponseEntity<List<ChildDTO>> getParentChildren(@PathVariable UUID parentId) {
+        List<ChildDTO> childrenDTOs = service.getParentChildren(parentId);
         return new ResponseEntity<>(childrenDTOs, HttpStatus.OK);
     }
 
     @GetMapping("/parents/{parentId}/children/{childId}")
-    public ResponseEntity<ChildDTO> getChildById(@PathVariable UUID parentId, @PathVariable UUID childId) {
-        ChildDTO childDTO = service.getChildById(parentId, childId);
+    public ResponseEntity<ChildDTO> getChildren(@PathVariable UUID parentId, @PathVariable UUID childId) {
+        ChildDTO childDTO = service.getChildren(parentId, childId);
         if (childDTO != null) {
             return new ResponseEntity<>(childDTO, HttpStatus.OK);
         } else {
