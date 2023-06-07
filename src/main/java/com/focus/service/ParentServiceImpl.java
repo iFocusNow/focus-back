@@ -98,6 +98,5 @@ public class ParentServiceImpl implements ParentService {
 
         return alertDTOs;
     }
-
 }
 

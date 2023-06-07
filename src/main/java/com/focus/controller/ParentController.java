@@ -62,5 +62,4 @@ public class ParentController {
         List<AlertDTO> alertDTOs = service.getParentAlerts(parentId);
         return new ResponseEntity<>(alertDTOs, HttpStatus.OK);
     }
-
 }
