@@ -92,7 +92,7 @@ VALUES('d7a8691f-8f4d-407e-b7b9-ba2821f4813c', 'Lenovo', 'PHONE', '1f2ab978-5b76
 
 INSERT INTO public.alerts
 (id, created_at, "type", updated_at, child_id)
-VALUES('a33e90e4-3829-4c17-bb0e-3456b896a6e5', '2023-05-29 08:30:00', 'BLOCK ENTRY', '2023-05-29 08:30:00', 'a8a11d01-ef85-4a76-9a87-af5d4b1f4b8c');
+VALUES('a33e90e4-3829-4c17-bb0e-3456b896a6e5', '2023-05-29 08:30:00', 'BLOCK_ENTRY', '2023-05-29 08:30:00', 'a8a11d01-ef85-4a76-9a87-af5d4b1f4b8c');
 
 INSERT INTO public.alerts
 (id, created_at, "type", updated_at, child_id)
@@ -104,7 +104,7 @@ VALUES('be0f4f97-c51b-41d5-8367-0d2f3a972f1c', '2023-05-29 15:00:00', 'PHONE_TIM
 
 INSERT INTO public.alerts
 (id, created_at, "type", updated_at, child_id)
-VALUES('0de041a1-dcac-4f89-ae4c-9cc4e502e3d7', '2023-05-29 18:15:00', 'BLOCK ENTRY', '2023-05-29 18:15:00', 'bbd76f12-05b4-4c76-bd2f-d0191a4d5de9');
+VALUES('0de041a1-dcac-4f89-ae4c-9cc4e502e3d7', '2023-05-29 18:15:00', 'BLOCK_ENTRY', '2023-05-29 18:15:00', 'bbd76f12-05b4-4c76-bd2f-d0191a4d5de9');
 
 INSERT INTO public.alerts
 (id, created_at, "type", updated_at, child_id)
@@ -112,7 +112,7 @@ VALUES('9b99eb74-7b84-4a39-89da-88096d4e8794', '2023-05-29 21:30:00', 'SOLICIT_U
 
 INSERT INTO public.alerts
 (id, created_at, "type", updated_at, child_id)
-VALUES('c2083d72-0f26-4592-b4e4-8525f7a0a1e7', '2023-05-30 09:45:00', 'BLOCK ENTRY', '2023-05-30 09:45:00', 'a8a11d01-ef85-4a76-9a87-af5d4b1f4b8c');
+VALUES('c2083d72-0f26-4592-b4e4-8525f7a0a1e7', '2023-05-30 09:45:00', 'BLOCK_ENTRY', '2023-05-30 09:45:00', 'a8a11d01-ef85-4a76-9a87-af5d4b1f4b8c');
 
 INSERT INTO public.alerts
 (id, created_at, "type", updated_at, child_id)
@@ -124,7 +124,7 @@ VALUES('8c3df870-76c1-4f67-9be7-0d1e141b61e5', '2023-05-30 17:15:00', 'PHONE_TIM
 
 INSERT INTO public.alerts
 (id, created_at, "type", updated_at, child_id)
-VALUES('e6a4be3f-06c7-4a62-a5b5-41f9c9f86b61', '2023-05-30 20:30:00', 'BLOCK ENTRY', '2023-05-30 20:30:00', 'bbd76f12-05b4-4c76-bd2f-d0191a4d5de9');
+VALUES('e6a4be3f-06c7-4a62-a5b5-41f9c9f86b61', '2023-05-30 20:30:00', 'BLOCK_ENTRY', '2023-05-30 20:30:00', 'bbd76f12-05b4-4c76-bd2f-d0191a4d5de9');
 
 INSERT INTO public.alerts
 (id, created_at, "type", updated_at, child_id)
