@@ -47,43 +47,21 @@ public class ChildServiceImpl implements ChildService{
 
     @Transactional
     public Child save(Child child){
-        for (Device de: child.getDevices()){
-            de.setChild(null);
-        }
-        for (Alert a: child.getAlerts()){
-            a.setChild(null);
-        }
-        Child newChild = childRepository.save(child);
-        /*List<Device> newDevices = deviceRepository.findAllByChild(child.getId());
-        List<Device> deviceList = new ArrayList<>();
-        for (Device device: devices) {
-            for (Device device1:newDevices){
-                if(device1.getId()==device.getId()){
-                    deviceList.add(device);
-                }
-                else{
-                    deviceList.add(device1);
-                }
-            }
 
-        }
-        for (Device device: deviceList){
-            device=deviceRepository.save(device);
-        }
-*/
+        Child newChild = childRepository.save(child);
 
         return newChild;
     }
     public Child listById(UUID id){
         Child child=childRepository.findById(id).get();
 
-        for (Device de: child.getDevices()){
+        /*for (Device de: child.getDevices()){
             de.setChild(null);
         }
         for (Alert a: child.getAlerts()){
             a.setChild(null);
         }
-
+*/
         return child;
     }
 

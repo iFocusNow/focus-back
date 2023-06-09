@@ -26,43 +26,31 @@ public class ChildController {
     @Autowired
     private DeviceService deviceService;
     @PutMapping("/edit/child/{child_id}")
-    public ResponseEntity<ChildEditDTO> updateChild (@PathVariable("child_id") UUID child_id, @RequestBody ChildDeviceDTO child){
+    public ResponseEntity<ChildEditDTO> updateChild (@PathVariable("child_id") UUID child_id, @RequestBody Child child){
         Child newChild = childService.listById(child_id);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-
+        if (child.getName()!=null) {
+            newChild.setName(child.getName());
+        };
         /*if (child.getDevices()!=null) {
             newchild.setDevices(child.getDevices());
         };*/
 
+        newChild.setUpdated_at(timestamp);
+
         List<Device> devices = deviceService.getDevices(child_id);
         List<Device> newDevices = child.getDevices();
 
-        for (Device update: newDevices){
-            Device existingDevice = devices.stream().filter(d->d.getId().equals(update.getId())).findFirst().orElse(null);
-            if(existingDevice!= null){
-
-            }
-            else{
-                deviceService.
+        for (Device updates: newDevices){
+            for (Device existing: devices){
+                if(existing.getId().equals(updates.getId())){
+                    existing.setBrand(updates.getBrand());
+                    //existing.setId(child_id);
+                    break;
+                }
             }
         }
-        if (child.getName()!=null) {
-            //throw exception
-        };
-
-
-        Child updateChild = new Child(
-                newChild.getParent(),
-                child.getName(),
-                newChild.getChild_code(),
-                newChild.getCreated_at(),
-                timestamp,
-                newChild.getAlerts(),
-
-
-        );
-
-       // Child updateChild = childService.save(newChild);
+        Child updateChild = childService.save(newChild);
         ChildEditDTO childEditDTO =childService.listChildDTO(updateChild.getId());
 
         return new ResponseEntity<>(childEditDTO, HttpStatus.OK);
