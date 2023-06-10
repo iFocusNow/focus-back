@@ -86,8 +86,7 @@ public class ParentServiceImpl implements ParentService {
             List<Alert> alerts = child.getAlerts();
             for (Alert alert : alerts) {
                 AlertDTO alertDTO = new AlertDTO(
-                        child.getId(),
-                        parent.getId(),
+                        alert.getChild().getId(),
                         alert.getType().toString(),
                         alert.getCreated_at(),
                         alert.getUpdated_at()
