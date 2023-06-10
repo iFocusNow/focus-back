@@ -1,10 +1,14 @@
 package com.focus.service;
 
 import com.focus.dto.DeviceDTO;
+import com.focus.model.AppDevice;
 import com.focus.model.Child;
 import com.focus.model.Device;
+import com.focus.model.Link;
+import com.focus.repository.AppDeviceRepository;
 import com.focus.repository.ChildRepository;
 import com.focus.repository.DeviceRepository;
+import com.focus.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,10 @@ public class DeviceServiceImpl implements DeviceService {
     private DeviceRepository repo;
     @Autowired
     private ChildRepository childRepository;
+    @Autowired
+    private LinkRepository linkRepository;
+    @Autowired
+    private AppDeviceRepository appDeviceRepository;
     public List<DeviceDTO> getAllDevices(UUID child_id) {
         List<Device> devices = repo.findAllByChild(child_id);
         List<DeviceDTO> deviceDTOs = new ArrayList<>();
@@ -53,6 +61,19 @@ public class DeviceServiceImpl implements DeviceService {
 
     public void delete(UUID id, boolean forced){
 
+        Device device = repo.findById(id).get();
+        if(forced){
+            List<Link> links = linkRepository.findAllByDevice(id);
+            List<AppDevice> appDevices = appDeviceRepository.findAllByDevice(id);
+            for (Link li: links){
+                linkRepository.delete(li);
+            }
+            for (AppDevice ad: appDevices){
+                appDeviceRepository.delete(ad);
+            }
+        }
+
+        repo.delete(device);
 
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,6 +49,19 @@ public class ChildController {
                     //existing.setId(child_id);
                     break;
                 }
+            }
+        }
+
+        List<UUID> updatedDeviceIds = new ArrayList<>();
+        for (Device updatedDevice : child.getDevices()) {
+            updatedDeviceIds.add(updatedDevice.getId());
+        }
+
+        Iterator<Device> iterator = devices.iterator();
+        while(iterator.hasNext()){
+            Device existingDevice = iterator.next();
+            if(!updatedDeviceIds.contains(existingDevice.getId())){
+                deviceService.delete(existingDevice.getId(),true);
             }
         }
         Child updateChild = childService.save(newChild);
