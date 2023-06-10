@@ -9,6 +9,9 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class AlertDTO {
-    private String childName;
+    private UUID childId;
+    private UUID parenId;
     private String type;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 }
