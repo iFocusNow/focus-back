@@ -25,6 +25,11 @@ public class ChildController {
     private ChildService childService;
     @Autowired
     private DeviceService deviceService;
+    @GetMapping("/parents/{parentId}/children")
+    public ResponseEntity<List<ChildDTO>> getParentChildren(@PathVariable("parentId") UUID parentId) {
+        List<ChildDTO> childrenDTOs = childService.getParentChildren(parentId);
+        return new ResponseEntity<>(childrenDTOs, HttpStatus.OK);
+    }
     @PutMapping("/edit/child/{child_id}")
     public ResponseEntity<ChildEditDTO> updateChild (@PathVariable("child_id") UUID child_id, @RequestBody ChildDeviceDTO child) {
         Child newChild = childService.listById(child_id);
@@ -70,11 +75,4 @@ public class ChildController {
 
         return new ResponseEntity<>(childEditDTO, HttpStatus.OK);
     }
-
-    @GetMapping("/parents/{parentId}/children")
-    public ResponseEntity<List<ChildDTO>> getParentChildren(@PathVariable("parentId") UUID parentId) {
-        List<ChildDTO> childrenDTOs = childService.getParentChildren(parentId);
-        return new ResponseEntity<>(childrenDTOs, HttpStatus.OK);
-    }
-
 }
