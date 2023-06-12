@@ -26,7 +26,7 @@ public class ParentController {
         List<ParentDTO> parents = parentService.getAllParents();
         return new ResponseEntity<>(parents, HttpStatus.OK);
     }
-    @PostMapping("/parents/register")
+    @PostMapping("/parents/register-parent")
     public ResponseEntity<Parent> registerParent(@RequestBody Parent parent) {
         try {
             Parent registeredParent = parentService.registerParent(parent);
