@@ -1,5 +1,6 @@
 package com.focus.controller;
 
+import com.focus.dto.ChildDeviceDTO;
 import com.focus.dto.ChildEditDTO;
 import com.focus.model.Child;
 import com.focus.model.Device;
@@ -24,7 +25,7 @@ public class ChildController {
     @Autowired
     private DeviceService deviceService;
     @PutMapping("/edit/child/{child_id}")
-    public ResponseEntity<ChildEditDTO> updateChild (@PathVariable("child_id") UUID child_id, @RequestBody Child child){
+    public ResponseEntity<ChildEditDTO> updateChild (@PathVariable("child_id") UUID child_id, @RequestBody ChildDeviceDTO child) {
         Child newChild = childService.listById(child_id);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         if (child.getName()!=null) {
