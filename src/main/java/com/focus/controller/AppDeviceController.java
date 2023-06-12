@@ -1,6 +1,7 @@
 package com.focus.controller;
 
 import com.focus.dto.AppDeviceDTO;
+import com.focus.model.AppDevice;
 import com.focus.service.AppDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,5 +27,11 @@ public class AppDeviceController {
     public ResponseEntity<Boolean> deleteAppDevice(@PathVariable("device_id") UUID device_id, @PathVariable("app_id") UUID app_id) {
         boolean isDeleted = appDeviceService.deleteAppDevice(device_id, app_id);
         return new ResponseEntity<>(isDeleted, HttpStatus.OK);
+    }
+
+    @PostMapping("/appDevices/create")
+    public ResponseEntity<Boolean> createAppDevice(@RequestBody AppDevice appDevice) {
+        boolean isCreated = appDeviceService.save(appDevice);
+        return new ResponseEntity<>(isCreated,HttpStatus.CREATED);
     }
 }
