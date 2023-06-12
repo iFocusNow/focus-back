@@ -33,7 +33,7 @@ public class ParentController {
         }
     }
 
-    @PostMapping("/parents/authenticate-parent")
+    @PostMapping("/parents/authenticate")
     public ResponseEntity<String> authenticateParent(@RequestBody ParentAuthDTO parentAuthDTO) {
         boolean authenticated = service.authenticateParent(parentAuthDTO.getEmail(), parentAuthDTO.getPassword());
         if (authenticated) {
