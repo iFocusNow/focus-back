@@ -1,8 +1,6 @@
 package com.focus.controller;
 
-import com.focus.dto.ChildDeviceDTO;
 import com.focus.dto.ChildEditDTO;
-import com.focus.dto.DeviceDTO;
 import com.focus.model.Child;
 import com.focus.model.Device;
 import com.focus.service.ChildService;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,38 +30,40 @@ public class ChildController {
         if (child.getName()!=null) {
             newChild.setName(child.getName());
         };
-        /*if (child.getDevices()!=null) {
-            newchild.setDevices(child.getDevices());
-        };*/
 
+        // Update timestamp in child
         newChild.setUpdated_at(timestamp);
 
         List<Device> devices = deviceService.getDevices(child_id);
         List<Device> newDevices = child.getDevices();
 
+        // Update child's devices list
         for (Device updates: newDevices){
             for (Device existing: devices){
                 if(existing.getId().equals(updates.getId())){
                     existing.setBrand(updates.getBrand());
-                    //existing.setId(child_id);
                     break;
                 }
             }
         }
 
+        // Replace old devices with updated devices
         List<UUID> updatedDeviceIds = new ArrayList<>();
         for (Device updatedDevice : child.getDevices()) {
             updatedDeviceIds.add(updatedDevice.getId());
         }
 
-        Iterator<Device> iterator = devices.iterator();
-        while(iterator.hasNext()){
-            Device existingDevice = iterator.next();
-            if(!updatedDeviceIds.contains(existingDevice.getId())){
-                deviceService.delete(existingDevice.getId(),true);
+        // Delete devices that are not in the updated list
+        for (Device existingDevice : devices) {
+            if (!updatedDeviceIds.contains(existingDevice.getId())) {
+                deviceService.delete(existingDevice.getId(), true);
             }
         }
+
+        // Save the updated Child
         Child updateChild = childService.save(newChild);
+
+        // Get the updated Child with DTO
         ChildEditDTO childEditDTO =childService.listChildDTO(updateChild.getId());
 
         return new ResponseEntity<>(childEditDTO, HttpStatus.OK);

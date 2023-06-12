@@ -26,25 +26,6 @@ public class ChildServiceImpl implements ChildService{
     @Autowired
     private DeviceRepository deviceRepository;
 
-
-   /*public ChildEditDTO editChild(UUID child_id,  List<Device> devices){
-        Child child = childRepository.findById(child_id).get();
-        List<DeviceDTO> deviceDTOList = new ArrayList<>();
-        for (Device device: devices) {
-            DeviceDTO deviceDTO = new DeviceDTO(
-                    device.getId(),
-                    device.getChild().getId(),
-                    device.getType(),
-                    device.getBrand()
-            );
-            deviceDTOList.add(deviceDTO);
-        }
-        ChildEditDTO childEditDTO = new ChildEditDTO(child.getName(), child.getParent().getPhoto_url());
-
-        return childEditDTO;
-
-    }*/
-
     @Transactional
     public Child save(Child child){
 
@@ -55,13 +36,6 @@ public class ChildServiceImpl implements ChildService{
     public Child listById(UUID id){
         Child child=childRepository.findById(id).get();
 
-        /*for (Device de: child.getDevices()){
-            de.setChild(null);
-        }
-        for (Alert a: child.getAlerts()){
-            a.setChild(null);
-        }
-*/
         return child;
     }
 

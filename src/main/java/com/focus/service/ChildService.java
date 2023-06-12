@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ChildService {
-
-    //public ChildEditDTO editChild(UUID child_id,  List<Device> devices);
     public Child save(Child child);
     public Child listById(UUID id);
     public ChildEditDTO listChildDTO(UUID id);
