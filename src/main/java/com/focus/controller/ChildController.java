@@ -69,4 +69,11 @@ public class ChildController {
 
         return new ResponseEntity<>(childEditDTO, HttpStatus.OK);
     }
+
+    @GetMapping("/edit/child/{child_id}")
+    public ResponseEntity<ChildEditDTO> getInfoChild (@PathVariable("child_id") UUID child_id){
+        ChildEditDTO childNameDTO = childService.listChildDTO(child_id);
+
+        return new ResponseEntity<>(childNameDTO, HttpStatus.OK);
+    }
 }
