@@ -3,7 +3,6 @@ package com.focus.controller;
 import com.focus.dto.ParentAccountDTO;
 import com.focus.dto.ParentAuthDTO;
 import com.focus.dto.ParentDTO;
-import com.focus.dto.AlertDTO;
 import com.focus.model.Parent;
 import com.focus.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,11 +54,5 @@ public class ParentController {
     public ResponseEntity<ParentAccountDTO> getParent(@PathVariable UUID parentId) {
         ParentAccountDTO parentDTO = service.getParentById(parentId);
         return new ResponseEntity<>(parentDTO, HttpStatus.OK);
-    }
-
-    @GetMapping("/alerts/{parentId}")
-    public ResponseEntity<List<AlertDTO>> getParentAlerts(@PathVariable UUID parentId) {
-        List<AlertDTO> alertDTOs = service.getParentAlerts(parentId);
-        return new ResponseEntity<>(alertDTOs, HttpStatus.OK);
     }
 }
