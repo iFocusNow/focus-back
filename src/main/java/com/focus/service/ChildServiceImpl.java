@@ -59,4 +59,7 @@ public class ChildServiceImpl implements ChildService{
         return childEditDTO;
 
     }
+    public long countChild(){
+        return childRepository.count();
+    }
 }

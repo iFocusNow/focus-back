@@ -4,8 +4,10 @@ import com.focus.dto.ChildDeviceDTO;
 import com.focus.dto.ChildEditDTO;
 import com.focus.model.Child;
 import com.focus.model.Device;
+import com.focus.model.Parent;
 import com.focus.service.ChildService;
 import com.focus.service.DeviceService;
+import com.focus.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ public class ChildController {
     private ChildService childService;
     @Autowired
     private DeviceService deviceService;
+    @Autowired
+    private ParentService parentService;
     @PutMapping("/edit/child/{child_id}")
     public ResponseEntity<ChildEditDTO> updateChild (@PathVariable("child_id") UUID child_id, @RequestBody ChildDeviceDTO child) {
         Child newChild = childService.listById(child_id);
@@ -69,4 +73,48 @@ public class ChildController {
 
         return new ResponseEntity<>(childEditDTO, HttpStatus.OK);
     }
+
+    @PostMapping("/add/child/{parent_id}")
+    public ResponseEntity<Boolean> addChild(@PathVariable("parent_id") UUID parent_id, @RequestBody Child child) {
+        boolean response;
+        //C
+        if (!child.getName().isEmpty() || !child.getName().isBlank()) {
+            Parent parent = parentService.getById(parent_id);
+            //List<Device> devices = child.getDevices();
+            child.setParent(parent);
+            //update times
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            child.setCreated_at(timestamp);
+            child.setUpdated_at(timestamp);
+            //obtaining code child
+            String number = String.format("%03d", childService.countChild());
+            child.setChild_code("C" + number);
+            //save child
+            Child newChild = childService.save(child);
+            //save devices
+            for (Device de : child.getDevices()) {
+                de.setChild(newChild);
+                deviceService.save(de);
+            }
+
+            //Check if it was inserted correctly
+            if (newChild != null && newChild.getId() != null && newChild.getName() != null ) {
+                // child was successfully inserted into the database
+                ChildEditDTO childEditDTO = childService.listChildDTO(newChild.getId());
+                response=true;
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
+            } else {
+                // Error inserting child into database or missing name
+                response=false;
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            }
+            //ChildEditDTO childEditDTO = childService.listChildDTO(newChild.getId());
+            //return new ResponseEntity<>(childEditDTO,HttpStatus.CREATED);
+        }
+        else{
+            response=false;
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+    }
+
 }

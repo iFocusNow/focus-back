@@ -12,4 +12,5 @@ public interface ChildService {
     public Child save(Child child);
     public Child listById(UUID id);
     public ChildEditDTO listChildDTO(UUID id);
+    public long countChild();
 }
