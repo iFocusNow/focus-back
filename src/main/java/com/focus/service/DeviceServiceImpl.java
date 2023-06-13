@@ -47,16 +47,15 @@ public class DeviceServiceImpl implements DeviceService {
         List<Device> devices = repo.findAllByChild(child_id);
         return devices;
     }
-    public Device save(Device device){
-        Child child = childRepository.findById(device.getChild().getId()).get();
+    public Device save(Device device, Child child){
         Device newDevice = new Device(
                 child,
                 device.getType(),
                 device.getBrand()
         );
         Device savedDevice= repo.save(newDevice);
-        savedDevice.getChild().setDevices(null);
-        return device;
+        //savedDevice.getChild().setDevices(null);
+        return savedDevice;
     }
 
     public void delete(UUID id, boolean forced){
