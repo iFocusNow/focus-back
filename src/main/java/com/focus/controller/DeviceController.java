@@ -32,11 +32,9 @@ public class DeviceController {
     @PostMapping("/add/device/{child_id}")
     public ResponseEntity<Boolean> addDevice(@PathVariable("child_id") UUID child_id, @RequestBody Device device) {
         boolean result;
-        if((!device.getBrand().isEmpty() || !device.getBrand().isBlank()) && (device.getType().name() != "")) {
+        if((!device.getBrand().isEmpty() || !device.getBrand().isBlank()) && (!device.getType().name().equals(""))) {
             Child child = childService.listById(child_id);
             //Update to updated_at
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            child.setUpdated_at(timestamp);
 
             Device newDevice = deviceService.save(device, child);
             //Check if the new device was saved successfully
