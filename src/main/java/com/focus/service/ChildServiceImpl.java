@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.lang.module.ResolutionException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,12 +26,26 @@ public class ChildServiceImpl implements ChildService{
     private ChildRepository childRepository;
     @Autowired
     private DeviceRepository deviceRepository;
+    @Autowired
+    private  ParentRepository parentRepository;
 
     @Transactional
     public Child save(Child child){
 
         Child newChild = childRepository.save(child);
 
+        return newChild;
+    }
+    public Child saveNew(Child child, Parent parent){
+        child.setParent(parent);
+        //update times
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        child.setCreated_at(timestamp);
+        child.setUpdated_at(timestamp);
+        //obtaining code child
+        String number = String.format("%03d", childRepository.count());
+        child.setChild_code("C" + number);
+        Child newChild = childRepository.save(child);
         return newChild;
     }
     public Child listById(UUID id){

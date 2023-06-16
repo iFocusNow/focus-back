@@ -80,17 +80,8 @@ public class ChildController {
         //C
         if (!child.getName().isEmpty() || !child.getName().isBlank()) {
             Parent parent = parentService.getById(parent_id);
-            //List<Device> devices = child.getDevices();
-            child.setParent(parent);
-            //update times
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            child.setCreated_at(timestamp);
-            child.setUpdated_at(timestamp);
-            //obtaining code child
-            String number = String.format("%03d", childService.countChild());
-            child.setChild_code("C" + number);
             //save child
-            Child newChild = childService.save(child);
+            Child newChild = childService.saveNew(child,parent);
             //save devices
             for (Device de : child.getDevices()) {
                 de.setChild(newChild);
