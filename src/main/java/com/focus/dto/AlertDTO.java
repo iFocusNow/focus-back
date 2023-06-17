@@ -10,5 +10,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AlertDTO {
     private UUID childId;
+    private String childName;
     private String type;
 }

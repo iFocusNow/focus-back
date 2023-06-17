@@ -30,6 +30,7 @@ public class AlertServiceImpl implements AlertService {
         for (Alert alert : alerts) {
             AlertDTO alertDTO = new AlertDTO(
                     alert.getChild().getId(),
+                    alert.getChild().getName(),
                     alert.getType().toString()
             );
             alertDTOs.add(alertDTO);
