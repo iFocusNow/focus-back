@@ -6,5 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AlertService {
-    List<AlertDTO> getParentAlerts(UUID parentId);
+
+    List<AlertDTO> getChildAlerts(UUID childId);
 }

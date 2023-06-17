@@ -11,6 +11,4 @@ import java.util.UUID;
 public class AlertDTO {
     private UUID childId;
     private String type;
-    private Timestamp created_at;
-    private Timestamp updated_at;
 }

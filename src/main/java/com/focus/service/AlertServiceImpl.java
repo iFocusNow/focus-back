@@ -3,8 +3,7 @@ package com.focus.service;
 import com.focus.dto.AlertDTO;
 import com.focus.model.Alert;
 import com.focus.model.Child;
-import com.focus.model.Parent;
-import com.focus.repository.ParentRepository;
+import com.focus.repository.ChildRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,31 +13,26 @@ import java.util.UUID;
 @Service
 public class AlertServiceImpl implements AlertService {
 
-    private final ParentRepository parentRepository;
+    private final ChildRepository childRepository;
 
-    public AlertServiceImpl(ParentRepository parentRepository) {
-        this.parentRepository = parentRepository;
+    public AlertServiceImpl(ChildRepository childRepository) {
+        this.childRepository = childRepository;
     }
 
     @Override
-    public List<AlertDTO> getParentAlerts(UUID parentId) {
-        Parent parent = parentRepository.findById(parentId)
-                .orElseThrow(() -> new RuntimeException("Parent not found"));
+    public List<AlertDTO> getChildAlerts(UUID childId) {
+        Child child = childRepository.findById(childId)
+                .orElseThrow(() -> new RuntimeException("Child not found"));
 
-        List<Child> children = parent.getChildren();
         List<AlertDTO> alertDTOs = new ArrayList<>();
 
-        for (Child child : children) {
-            List<Alert> alerts = child.getAlerts();
-            for (Alert alert : alerts) {
-                AlertDTO alertDTO = new AlertDTO(
-                        alert.getChild().getId(),
-                        alert.getType().toString(),
-                        alert.getCreated_at(),
-                        alert.getUpdated_at()
-                );
-                alertDTOs.add(alertDTO);
-            }
+        List<Alert> alerts = child.getAlerts();
+        for (Alert alert : alerts) {
+            AlertDTO alertDTO = new AlertDTO(
+                    alert.getChild().getId(),
+                    alert.getType().toString()
+            );
+            alertDTOs.add(alertDTO);
         }
 
         return alertDTOs;
