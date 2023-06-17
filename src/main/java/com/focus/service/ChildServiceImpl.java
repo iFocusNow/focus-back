@@ -68,10 +68,7 @@ public class ChildServiceImpl implements ChildService{
         for (Child child : children) {
             ChildDTO childDTO = new ChildDTO(
                     child.getId(),
-                    child.getParent().getId(),
-                    child.getName(),
-                    child.getCreated_at(),
-                    child.getUpdated_at()
+                    child.getName()
             );
             childrenDTOs.add(childDTO);
         }
