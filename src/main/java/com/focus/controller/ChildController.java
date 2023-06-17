@@ -25,7 +25,7 @@ public class ChildController {
     private ChildService childService;
     @Autowired
     private DeviceService deviceService;
-    @GetMapping("/parents/{parentId}/children")
+    @GetMapping("/children/by/{parentId}")
     public ResponseEntity<List<ChildDTO>> getParentChildren(@PathVariable("parentId") UUID parentId) {
         List<ChildDTO> childrenDTOs = childService.getParentChildren(parentId);
         return new ResponseEntity<>(childrenDTOs, HttpStatus.OK);
