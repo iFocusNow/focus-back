@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public interface ChildService {
     public Child save(Child child);
-    public Child saveNew(Child child, Parent parent);
+    public Child addNewChild(Child child, Parent parent);
     public Child listById(UUID id);
     public ChildEditDTO listChildDTO(UUID id);
     public long countChild();

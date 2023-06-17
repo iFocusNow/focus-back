@@ -93,7 +93,7 @@ public class ChildController {
         if (!child.getName().isEmpty() || !child.getName().isBlank()) {
             Parent parent = parentService.getById(parent_id);
             //save child
-            Child newChild = childService.saveNew(child,parent);
+            Child newChild = childService.addNewChild(child,parent);
             //save devices
             for (Device de : child.getDevices()) {
                 de.setChild(newChild);

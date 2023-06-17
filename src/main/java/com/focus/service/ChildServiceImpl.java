@@ -37,7 +37,7 @@ public class ChildServiceImpl implements ChildService{
 
         return newChild;
     }
-    public Child saveNew(Child child, Parent parent){
+    public Child addNewChild(Child child, Parent parent){
         child.setParent(parent);
         //update times
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
