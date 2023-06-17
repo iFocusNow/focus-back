@@ -1,5 +1,6 @@
 package com.focus.controller;
 
+import com.focus.dto.ChildDTO;
 import com.focus.dto.ChildDeviceDTO;
 import com.focus.dto.ChildEditDTO;
 import com.focus.model.Child;
@@ -28,6 +29,11 @@ public class ChildController {
     private DeviceService deviceService;
     @Autowired
     private ParentService parentService;
+    @GetMapping("/children/by/{parentId}")
+    public ResponseEntity<List<ChildDTO>> getParentChildren(@PathVariable("parentId") UUID parentId) {
+        List<ChildDTO> childrenDTOs = childService.getParentChildren(parentId);
+        return new ResponseEntity<>(childrenDTOs, HttpStatus.OK);
+    }
     @PutMapping("/edit/child/{child_id}")
     public ResponseEntity<ChildEditDTO> updateChild (@PathVariable("child_id") UUID child_id, @RequestBody ChildDeviceDTO child) {
         Child newChild = childService.listById(child_id);

@@ -3,6 +3,7 @@ package com.focus.controller;
 import com.focus.dto.ParentAccountDTO;
 import com.focus.dto.ParentAuthDTO;
 import com.focus.dto.ParentDTO;
+import com.focus.dto.ChildDTO;
 import com.focus.model.Parent;
 import com.focus.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +56,5 @@ public class ParentController {
         ParentAccountDTO parentDTO = service.getParentById(parentId);
         return new ResponseEntity<>(parentDTO, HttpStatus.OK);
     }
+
 }

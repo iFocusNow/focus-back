@@ -38,4 +38,13 @@ public class Child {
         this.alerts = alerts;
         this.devices = devices;
     }
+
+    public Timestamp getCreatedAt() {
+        return created_at;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updated_at;
+    }
+
 }

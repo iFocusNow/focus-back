@@ -1,5 +1,6 @@
 package com.focus.service;
 
+import com.focus.dto.ChildDTO;
 import com.focus.dto.ChildEditDTO;
 import com.focus.model.Child;
 import com.focus.model.Device;
@@ -15,4 +16,5 @@ public interface ChildService {
     public Child listById(UUID id);
     public ChildEditDTO listChildDTO(UUID id);
     public long countChild();
+    List<ChildDTO> getParentChildren(UUID parentId);
 }

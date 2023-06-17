@@ -1,5 +1,6 @@
 package com.focus.service;
 
+import com.focus.dto.ChildDTO;
 import com.focus.dto.ChildEditDTO;
 import com.focus.dto.DeviceDTO;
 import com.focus.model.Alert;
@@ -77,4 +78,18 @@ public class ChildServiceImpl implements ChildService{
     public long countChild(){
         return childRepository.count();
     }
+
+    public List<ChildDTO> getParentChildren(UUID parentId) {
+        List<Child> children = childRepository.findAllByParentId(parentId);
+        List<ChildDTO> childrenDTOs = new ArrayList<>();
+        for (Child child : children) {
+            ChildDTO childDTO = new ChildDTO(
+                    child.getId(),
+                    child.getName()
+            );
+            childrenDTOs.add(childDTO);
+        }
+        return childrenDTOs;
+    }
+
 }
