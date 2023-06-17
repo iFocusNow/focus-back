@@ -73,5 +73,11 @@ public class ParentServiceImpl implements ParentService {
 
         return parentDTO;
     }
+    public Parent getById(UUID parentId){
+
+        Parent parent = repo.findById(parentId).get();
+        parent.setChildren(null);
+        return parent;
+    }
 }
 

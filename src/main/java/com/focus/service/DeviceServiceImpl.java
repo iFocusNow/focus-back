@@ -56,7 +56,7 @@ public class DeviceServiceImpl implements DeviceService {
         );
         Device savedDevice= repo.save(newDevice);
         savedDevice.getChild().setDevices(null);
-        return device;
+        return savedDevice;
     }
 
     public void delete(UUID id, boolean forced){
