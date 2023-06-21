@@ -12,6 +12,7 @@ import com.focus.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,8 +48,9 @@ public class DeviceServiceImpl implements DeviceService {
         List<Device> devices = repo.findAllByChild(child_id);
         return devices;
     }
-    public Device save(Device device){
-        Child child = childRepository.findById(device.getChild().getId()).get();
+    public Device saveDevice(Device device, Child child){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        child.setUpdated_at(timestamp);
         Device newDevice = new Device(
                 child,
                 device.getType(),
