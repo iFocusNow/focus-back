@@ -3,6 +3,8 @@ package com.focus.service;
 import com.focus.dto.ChildDTO;
 import com.focus.dto.ChildEditDTO;
 import com.focus.dto.DeviceDTO;
+import com.focus.exceptions.InternalServerErrorException;
+import com.focus.exceptions.ResourceNotFoundException;
 import com.focus.model.Alert;
 import com.focus.model.Child;
 import com.focus.model.Device;
@@ -31,65 +33,100 @@ public class ChildServiceImpl implements ChildService{
     private  ParentRepository parentRepository;
 
     @Transactional
-    public Child save(Child child){
-
-        Child newChild = childRepository.save(child);
-
-        return newChild;
+    public Child save(Child child) {
+        try {
+            Child newChild = childRepository.save(child);
+            return newChild;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error", e);
+        }
     }
-    public Child saveNew(Child child, Parent parent){
-        child.setParent(parent);
-        //update times
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        child.setCreated_at(timestamp);
-        child.setUpdated_at(timestamp);
-        //obtaining code child
-        String number = String.format("%03d", childRepository.count());
-        child.setChild_code("C" + number);
-        Child newChild = childRepository.save(child);
-        return newChild;
+    public Child saveNew(Child child, Parent parent) {
+        try {
+            child.setParent(parent);
+            //update times
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            child.setCreated_at(timestamp);
+            child.setUpdated_at(timestamp);
+            //obtaining code child
+            String number = String.format("%03d", childRepository.count());
+            child.setChild_code("C" + number);
+            Child newChild = childRepository.save(child);
+            return newChild;
+        } catch (Exception e) {
+            throw new ResolutionException("Internal server error", e);
+        }
     }
+
     public Child listById(UUID id){
-        Child child=childRepository.findById(id).get();
-
-        return child;
+        try {
+            Child child = childRepository.findById(id).get();
+            if (child == null) {
+                throw new ResourceNotFoundException("Child not found with id: " + id);
+            }
+            return child;
+        }catch (Exception e){
+            throw new ResolutionException("Internal server error", e);
+        }
     }
 
     public ChildEditDTO listChildDTO(UUID id) {
-        Child child = childRepository.findById(id).get();
-        List<Device> devices = deviceRepository.findAllByChild(id);
-        List<DeviceDTO> deviceDTOs = new ArrayList<>();
+        try {
+            Child child = childRepository.findById(id).get();
+            if (child == null) {
+                throw new ResourceNotFoundException("Child not found");
+            }
+            List<Device> devices = deviceRepository.findAllByChild(id);
+            if (devices == null) {
+                throw new ResourceNotFoundException("Devices not found with child id: " + id);
+            }
+            List<DeviceDTO> deviceDTOs = new ArrayList<>();
 
-        for (Device device: devices) {
-            DeviceDTO deviceDTO = new DeviceDTO(
-                    device.getId(),
-                    device.getChild().getId(),
-                    device.getType(),
-                    device.getBrand()
-            );
-            deviceDTOs.add(deviceDTO);
+            for (Device device : devices) {
+                DeviceDTO deviceDTO = new DeviceDTO(
+                        device.getId(),
+                        device.getChild().getId(),
+                        device.getType(),
+                        device.getBrand()
+                );
+                deviceDTOs.add(deviceDTO);
+            }
+            ChildEditDTO childEditDTO = new ChildEditDTO(child.getName(), child.getParent().getPhoto_url(), deviceDTOs);
+
+
+            return childEditDTO;
+
+        } catch (Exception e) {
+            throw new ResolutionException("Internal server error", e);
         }
-        ChildEditDTO childEditDTO = new ChildEditDTO(child.getName(),child.getParent().getPhoto_url(), deviceDTOs);
-
-
-        return childEditDTO;
-
     }
-    public long countChild(){
-        return childRepository.count();
+    public long countChild() {
+        try {
+            return childRepository.count();
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error", e);
+        }
     }
 
     public List<ChildDTO> getParentChildren(UUID parentId) {
-        List<Child> children = childRepository.findAllByParentId(parentId);
-        List<ChildDTO> childrenDTOs = new ArrayList<>();
-        for (Child child : children) {
-            ChildDTO childDTO = new ChildDTO(
-                    child.getId(),
-                    child.getName()
-            );
-            childrenDTOs.add(childDTO);
+        try {
+            List<Child> children = childRepository.findAllByParentId(parentId);
+            if (children == null) {
+                throw new ResourceNotFoundException("Children not found with parent id: " + parentId);
+            }
+            List<ChildDTO> childrenDTOs = new ArrayList<>();
+            for (Child child : children) {
+                ChildDTO childDTO = new ChildDTO(
+                        child.getId(),
+                        child.getName()
+                );
+                childrenDTOs.add(childDTO);
+            }
+            return childrenDTOs;
+        } catch (Exception e) {
+            throw new ResolutionException("Internal server error", e);
         }
-        return childrenDTOs;
     }
+
 
 }

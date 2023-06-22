@@ -1,6 +1,8 @@
 package com.focus.service;
 
 import com.focus.dto.AppDeviceDTO;
+import com.focus.exceptions.InternalServerErrorException;
+import com.focus.exceptions.ResourceNotFoundException;
 import com.focus.model.App;
 import com.focus.model.AppDevice;
 import com.focus.model.BlockPeriod;
@@ -31,44 +33,56 @@ public class AppDeviceServiceImpl implements AppDeviceService {
     private BlockPeriodRepository blockPeriodRepository;
 
     public List<AppDeviceDTO> getAllAppDevices(UUID device_id) {
-        List<AppDevice> appDevices = repo.findAllByDevice(device_id);
-        List<AppDeviceDTO> appDeviceDTOs = new ArrayList<>();
+        try {
+            List<AppDevice> appDevices = repo.findAllByDevice(device_id);
+            if (appDevices.isEmpty()) {
+                throw new ResourceNotFoundException("No apps found for device with id: " + device_id);
+            }
+            List<AppDeviceDTO> appDeviceDTOs = new ArrayList<>();
 
-        for (AppDevice appDevice: appDevices) {
-            AppDeviceDTO appDeviceDTO = new AppDeviceDTO(
-                    appDevice.getId(),
-                    appDevice.getApp().getId(),
-                    appDevice.getApp().getLogo_url(),
-                    appDevice.getApp().getName(),
-                    appDevice.getBlock_period().getId(),
-                    appDevice.getBlock_period().getIs_monday(),
-                    appDevice.getBlock_period().getIs_tuesday(),
-                    appDevice.getBlock_period().getIs_wednesday(),
-                    appDevice.getBlock_period().getIs_thursday(),
-                    appDevice.getBlock_period().getIs_friday(),
-                    appDevice.getBlock_period().getIs_saturday(),
-                    appDevice.getBlock_period().getIs_sunday()
+            for (AppDevice appDevice : appDevices) {
+                AppDeviceDTO appDeviceDTO = new AppDeviceDTO(
+                        appDevice.getId(),
+                        appDevice.getApp().getId(),
+                        appDevice.getApp().getLogo_url(),
+                        appDevice.getApp().getName(),
+                        appDevice.getBlock_period().getId(),
+                        appDevice.getBlock_period().getIs_monday(),
+                        appDevice.getBlock_period().getIs_tuesday(),
+                        appDevice.getBlock_period().getIs_wednesday(),
+                        appDevice.getBlock_period().getIs_thursday(),
+                        appDevice.getBlock_period().getIs_friday(),
+                        appDevice.getBlock_period().getIs_saturday(),
+                        appDevice.getBlock_period().getIs_sunday()
 
-            );
-            appDeviceDTOs.add(appDeviceDTO);
+                );
+                appDeviceDTOs.add(appDeviceDTO);
+            }
+            return appDeviceDTOs;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error", e);
         }
-        return appDeviceDTOs;
     }
 
     public boolean deleteAppDevice(UUID device_id, UUID app_id) {
-        List<AppDevice> appDevices = repo.findByDeviceAndApp(device_id, app_id);
-        if (!appDevices.isEmpty()) {
-            for (AppDevice appDevice: appDevices) {
-                repo.delete(appDevice);
+        try {
+            List<AppDevice> appDevices = repo.findByDeviceAndApp(device_id, app_id);
+
+            if (appDevices.isEmpty()) return false;
+            if (!appDevices.isEmpty()) {
+                for (AppDevice appDevice : appDevices) {
+                    repo.delete(appDevice);
+                }
+                return true;
             }
-            return true;
+            return false;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error", e);
         }
-        return false;
     }
 
     public boolean save(AppDevice appDevice) {
         try {
-
             if (appRepository.findById(appDevice.getApp().getId()).isEmpty()) return false;
             if (blockPeriodRepository.findById(appDevice.getBlock_period().getId()).isEmpty()) return false;
             if (deviceRepository.findById(appDevice.getDevice().getId()).isEmpty()) return false;
@@ -81,7 +95,7 @@ public class AppDeviceServiceImpl implements AppDeviceService {
             AppDevice savedAppDevice = repo.save(newAppDevice);
             return true;
         }catch (Exception e) {
-            return false;
+            throw new InternalServerErrorException("Internal server error", e);
         }
     }
 
