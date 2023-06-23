@@ -97,7 +97,7 @@ public class ChildController {
             //save devices
             for (Device de : child.getDevices()) {
                 de.setChild(newChild);
-                deviceService.saveDevice(de,child);
+                deviceService.save(de);
             }
 
             //Check if it was inserted correctly
