@@ -97,7 +97,7 @@ public class ChildController {
             //save devices
             for (Device de : child.getDevices()) {
                 de.setChild(newChild);
-                deviceService.save(de);
+                deviceService.saveDevice(de, newChild);
             }
 
             //Check if it was inserted correctly
@@ -111,8 +111,6 @@ public class ChildController {
                 response=false;
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }
-            //ChildEditDTO childEditDTO = childService.listChildDTO(newChild.getId());
-            //return new ResponseEntity<>(childEditDTO,HttpStatus.CREATED);
         }
         else{
             response=false;
