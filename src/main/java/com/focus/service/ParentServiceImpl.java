@@ -51,11 +51,11 @@ public class ParentServiceImpl implements ParentService {
     public Parent registerParent(Parent parent) {
         try {
             Parent existingParent = repo.findByEmail(parent.getEmail());
-            if (existingParent != null) {
-                throw new DuplicateEntryException("Email already registered");
-            }
-            String encodedPassword = BCrypt.hashpw(parent.getPassword(), BCrypt.gensalt());
-            parent.setPassword(encodedPassword);
+            // if (existingParent != null) {
+            //     throw new DuplicateEntryException("Email already registered");
+            // }
+            // String encodedPassword = BCrypt.hashpw(parent.getPassword(), BCrypt.gensalt());
+            // parent.setPassword(encodedPassword);
             return repo.save(parent);
         } catch (Exception e) {
             throw new InternalServerErrorException("Internal server error registering parent", e);
@@ -63,17 +63,17 @@ public class ParentServiceImpl implements ParentService {
     }
 
 
-    public boolean authenticateParent(String email, String password) {
-        try {
-            Parent parent = repo.findByEmail(email);
-            if (parent != null) {
-                return BCrypt.checkpw(password, parent.getPassword());
-            }
-            return false;
-        } catch (Exception e) {
-            throw new IncompleteDataException("Internal server error authenticating parent" + e);
-        }
-    }
+    // public boolean authenticateParent(String email, String password) {
+    //     try {
+    //         Parent parent = repo.findByEmail(email);
+    //         if (parent != null) {
+    //             return BCrypt.checkpw(password, parent.getPassword());
+    //         }
+    //         return false;
+    //     } catch (Exception e) {
+    //         throw new IncompleteDataException("Internal server error authenticating parent" + e);
+    //     }
+    // }
 
     public ParentAccountDTO getParentById(UUID parentId) {
         try {

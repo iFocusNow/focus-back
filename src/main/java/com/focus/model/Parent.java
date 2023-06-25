@@ -22,10 +22,31 @@ public class Parent {
     private String email;
     private String photo_url;
     private String password;
+    private boolean active;
     private Timestamp created_at;
     private Timestamp updated_at;
     @OneToMany(mappedBy = "parent")
     private List<Child> children;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="parent_authorities",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "user_id",
+                            referencedColumnName = "id",
+                            nullable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "authority_id",
+                            referencedColumnName = "id",
+                            nullable = false
+                    )
+            }
+    )
+    private List<Authority> authorities;
 
     public Parent(String last_name_mother, String last_name_father, String email, String photo_url, String password, Timestamp created_at, Timestamp updated_at, List<Child> children) {
         this.last_name_mother = last_name_mother;

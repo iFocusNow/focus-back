@@ -11,6 +11,7 @@ public interface ParentService {
     public List<ParentDTO> getAllParents();
     public ParentAccountDTO getParentById(UUID parentId);
     public Parent getById(UUID parentId);
+    // Save user
     public Parent registerParent(Parent parent);
-    public boolean authenticateParent(String email, String password);
+    // public boolean authenticateParent(String email, String password);
 }

@@ -34,17 +34,16 @@ public class ParentController {
         }
     }
 
-    @PostMapping("/parents/authenticate-parent")
-    public ResponseEntity<String> authenticateParent(@RequestBody ParentAuthDTO parentAuthDTO) {
-        boolean authenticated = service.authenticateParent(parentAuthDTO.getEmail(), parentAuthDTO.getPassword());
-        if (authenticated) {
-            return ResponseEntity.ok("Authentication successful");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
-        }
-    }
+    // @PostMapping("/parents/authenticate-parent")
+    // public ResponseEntity<String> authenticateParent(@RequestBody ParentAuthDTO parentAuthDTO) {
+    //     boolean authenticated = service.authenticateParent(parentAuthDTO.getEmail(), parentAuthDTO.getPassword());
+    //     if (authenticated) {
+    //         return ResponseEntity.ok("Authentication successful");
+    //     } else {
+    //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
+    //     }
+    // }
 
-    // Test api
     @GetMapping("/parents")
     public ResponseEntity<List<ParentDTO>> getAllParents() {
         List<ParentDTO> parentDTOs = service.getAllParents();
