@@ -55,7 +55,7 @@ CREATE TYPE public.device_type AS ENUM (
 	'PC');
 ```
 #### Indicaciones para el uso de la aplicación web
-```
+
 -El usuario accede a la aplicación web y se muestra la página de registro del padre.
 -El usuario completa los campos requeridos en el formulario de registro y envía la información.
 -Después del registro, se muestra la página de inicio de sesión del padre.
@@ -73,9 +73,6 @@ CREATE TYPE public.device_type AS ENUM (
 -El usuario puede agregar un nuevo URL bloqueado accediendo al modal de agregado de un nuevo URL.
 -El usuario completa la información requerida, como el URL y una descripción opcional, y guarda la configuración.
 -Por último, el usuario puede acceder a la sección de ayuda al usuario para obtener información adicional o asistencia con el uso de la aplicación.
-```
-
-
 
 ### Documentación de Referencia
 Para más información de referencia, considera las siguientes secciones:
