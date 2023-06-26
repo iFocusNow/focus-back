@@ -1,11 +1,11 @@
-# Springboot Docker template
+# Plantilla de Spring Boot Docker
 
-### Getting started
+### Empezando
 
-#### Installation
+#### Instalación
 
-Install Maven (mvn), Docker and Java in your computer.
-Run the following without error to check if all your your versions are alright:
+Instala Maven (mvn), Docker y Java en tu computadora.
+Ejecuta lo siguiente sin errores para verificar si todas tus versiones están correctas:
 ```
 java -version
 mvn -v
@@ -13,19 +13,18 @@ docker -v
 ```
 
 #### Dockerfile and Docker-compose
-Make sure to change the name of your Dockerfile application (demo to whatever your application may be).
-Before running anything in Docker, make sure your application runs correctly. I left some useful application properties in resources, so you can change them as you wish. After that, run the following to repackage your project:
+Asegúrate de cambiar el nombre de tu archivo Dockerfile de la aplicación (de "demo" a cualquier nombre que tenga tu aplicación).
+Antes de ejecutar cualquier cosa en Docker, asegúrate de que tu aplicación se ejecute correctamente. Dejé algunas propiedades de aplicación útiles en recursos, para que puedas cambiarlas como desees. Después de eso, ejecuta lo siguiente para empaquetar de nuevo tu proyecto:
 ```
 mvn package spring-boot:repackage
 ```
-This will generate a .jar file in your package folder.
+Esto generará un archivo .jar en tu carpeta de paquetes.
 
-Now, you can run the docker-compose as follows in the terminal:
+Ahora, puedes ejecutar el docker-compose de la siguiente manera en la terminal:
 ```
 docker compose -f ./docker-compose.yaml up
 ```
-If both containers are running fine and without errors, then you can check localhost:8080 or connect your database to a database manager.
-
+Si ambos contenedores se ejecutan correctamente y sin errores, entonces puedes verificar localhost:8080 o conectar tu base de datos a un administrador de bases de datos.
 ### Antes de correr Springboot
 
 Cuando se crea la base de datos de Docker, es necesario crear los tipos de datos antes de crear los datos con Springboot.
@@ -55,9 +54,31 @@ CREATE TYPE public.device_type AS ENUM (
 	'LAPTOP',
 	'PC');
 ```
+#### Indicaciones para el uso de la aplicación web
+```
+-El usuario accede a la aplicación web y se muestra la página de registro del padre.
+-El usuario completa los campos requeridos en el formulario de registro y envía la información.
+-Después del registro, se muestra la página de inicio de sesión del padre.
+-El usuario ingresa sus credenciales en el formulario de inicio de sesión y se autentica en la aplicación.
+-Una vez autenticado, se muestra el perfil del usuario padre con información personal y opciones de configuración.
+-En la página de perfil, el usuario puede acceder a la sección de dispositivos bloqueados, donde se muestra el dispositivo por defecto y el listado de aplicaciones bloqueadas.
+-El usuario puede navegar a la sección de listado de aplicaciones disponibles para bloquearlas.
+-En esta sección, se muestra un listado de aplicaciones de la base de datos que el usuario padre puede seleccionar para bloquear.
+-El usuario también puede acceder a la sección de listado de días disponibles para bloquear las aplicaciones.
+-En esta sección, se muestra un calendario o una lista de días en los que el usuario puede especificar el bloqueo de aplicaciones.
+-Cuando el usuario selecciona una aplicación o un día para bloquear, se muestra una confirmación de desbloqueo de la aplicación.
+-El usuario puede confirmar el bloqueo y se guarda la configuración en la base de datos.
+-Además de las aplicaciones, el usuario puede acceder a la sección de dispositivos bloqueados con enlaces.
+-En esta sección, se muestra el dispositivo por defecto y el listado de enlaces bloqueados.
+-El usuario puede agregar un nuevo URL bloqueado accediendo al modal de agregado de un nuevo URL.
+-El usuario completa la información requerida, como el URL y una descripción opcional, y guarda la configuración.
+-Por último, el usuario puede acceder a la sección de ayuda al usuario para obtener información adicional o asistencia con el uso de la aplicación.
+```
 
-### Reference Documentation
-For further reference, please consider the following sections:
+
+
+### Documentación de Referencia
+Para más información de referencia, considera las siguientes secciones:
 
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 * [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.0.5/maven-plugin/reference/html/)
@@ -67,8 +88,8 @@ For further reference, please consider the following sections:
 * [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.0.5/reference/htmlsingle/#using.devtools)
 * [Docker](https://docs.docker.com/)
 
-### Guides
-The following guides illustrate how to use some features concretely:
+### Guías
+Las siguientes guías ilustran cómo utilizar algunas características concretamente:
 
 * [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
