@@ -29,10 +29,20 @@ public class SecurityConfigurations {
     //     return configuration.getAuthenticationManager();
     // }
 
-    // @Bean
-    // SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    //     http.csrf().disable();
-    //     http.cors(withDefaults());
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.httpBasic();
+
+        //  Permit Cross Origins
+        http.csrf().disable();
+
+        // Permit all authentication requests
+        http.authorizeHttpRequests().requestMatchers("/api/parents/register-parent");
+        http.authorizeHttpRequests().anyRequest().authenticated();
+
+
+        return http.build();
+
 
     //     http.authorizeHttpRequests( (auth) ->auth
     //             .requestMatchers(AUTH_WHITELIST).permitAll()
@@ -44,7 +54,7 @@ public class SecurityConfigurations {
     //     http.sessionManagement( (session)-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
     //     return http.build();
-    // }
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -19,20 +19,19 @@ public class Parent {
     private UUID id;
     private String last_name_mother;
     private String last_name_father;
-    private String email;
     private String photo_url;
-    private String password;
     private Timestamp created_at;
     private Timestamp updated_at;
     @OneToMany(mappedBy = "parent")
     private List<Child> children;
+    // In User:
+    // email - userName
+    // password - password
 
-    public Parent(String last_name_mother, String last_name_father, String email, String photo_url, String password, Timestamp created_at, Timestamp updated_at, List<Child> children) {
+    public Parent(String last_name_mother, String last_name_father, String photo_url, Timestamp created_at, Timestamp updated_at, List<Child> children) {
         this.last_name_mother = last_name_mother;
         this.last_name_father = last_name_father;
-        this.email = email;
         this.photo_url = photo_url;
-        this.password = password;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.children = children;

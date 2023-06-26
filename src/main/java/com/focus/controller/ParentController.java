@@ -1,9 +1,6 @@
 package com.focus.controller;
 
-import com.focus.dto.ParentAccountDTO;
-import com.focus.dto.ParentAuthDTO;
-import com.focus.dto.ParentDTO;
-import com.focus.dto.ChildDTO;
+import com.focus.dto.*;
 import com.focus.model.Parent;
 import com.focus.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +22,13 @@ public class ParentController {
         this.service = service;
     }
     @PostMapping("/parents/register-parent")
-    public ResponseEntity<Parent> registerParent(@RequestBody Parent parent) {
+    public ResponseEntity<?> registerParent(@RequestBody ParentUserDTO parentUser) {
         try {
-            Parent registeredParent = service.registerParent(parent);
+            Parent registeredParent = service.registerParent(parentUser);
             return new ResponseEntity<>(registeredParent, HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-    }
-
-    @PostMapping("/parents/authenticate-parent")
-    public ResponseEntity<String> authenticateParent(@RequestBody ParentAuthDTO parentAuthDTO) {
-        boolean authenticated = service.authenticateParent(parentAuthDTO.getEmail(), parentAuthDTO.getPassword());
-        if (authenticated) {
-            return ResponseEntity.ok("Authentication successful");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
+            String errorMessage = "An error occurred: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
     }
 

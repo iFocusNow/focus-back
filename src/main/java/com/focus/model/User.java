@@ -17,8 +17,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    private String userName;
+    private String userName; // email
     private String password;
     private boolean active;
     private Date passwordLastUpdate;
@@ -42,14 +41,18 @@ public class User {
             }
     )
     private List<Authority> authorities;
+    @OneToOne
+    @JoinColumn(name = "parent_id")
+    private Parent parent_id;
 
 
-    public User(String userName, String password, boolean active, Date passwordLastUpdate, List<Authority> authorities) {
+    public User(String userName, String password, boolean active, Date passwordLastUpdate, List<Authority> authorities, Parent parent_id) {
         this.userName = userName;
         this.password = password;
         this.active = active;
         this.passwordLastUpdate = passwordLastUpdate;
         this.authorities = authorities;
+        this.parent_id = parent_id;
     }
 }
 

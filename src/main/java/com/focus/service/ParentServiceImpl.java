@@ -2,16 +2,19 @@ package com.focus.service;
 
 import com.focus.dto.ParentAccountDTO;
 import com.focus.dto.ParentDTO;
+import com.focus.dto.ParentUserDTO;
 import com.focus.exceptions.DuplicateEntryException;
-import com.focus.exceptions.IncompleteDataException;
 import com.focus.exceptions.InternalServerErrorException;
 import com.focus.exceptions.ResourceNotFoundException;
-import com.focus.model.Parent;
+import com.focus.model.*;
 import com.focus.repository.ParentRepository;
+import com.focus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +24,8 @@ import java.util.UUID;
 public class ParentServiceImpl implements ParentService {
     @Autowired
     private ParentRepository repo;
+    @Autowired
+    private UserRepository userRespository;
 
     public List<ParentDTO> getAllParents() {
         try {
@@ -34,9 +39,7 @@ public class ParentServiceImpl implements ParentService {
                         parent.getId(),
                         parent.getLast_name_mother(),
                         parent.getLast_name_father(),
-                        parent.getEmail(),
                         parent.getPhoto_url(),
-                        parent.getPassword(),
                         parent.getCreated_at(),
                         parent.getUpdated_at()
                 );
@@ -48,30 +51,51 @@ public class ParentServiceImpl implements ParentService {
         }
     }
 
-    public Parent registerParent(Parent parent) {
+    // Change to ParentUserRegisterDTO
+    public Parent registerParent(ParentUserDTO parentUser) {
+        // TODO: FIX Authority save
         try {
-            Parent existingParent = repo.findByEmail(parent.getEmail());
-            if (existingParent != null) {
+            // user User to check if email is already registered
+            User existingUser = userRespository.findByUserName(parentUser.getEmail());
+            if (existingUser != null) {
                 throw new DuplicateEntryException("Email already registered");
             }
-            String encodedPassword = BCrypt.hashpw(parent.getPassword(), BCrypt.gensalt());
-            parent.setPassword(encodedPassword);
-            return repo.save(parent);
+            String encodedPassword = BCrypt.hashpw(parentUser.getPassword(), BCrypt.gensalt());
+
+            List<Child> children = new ArrayList<>();
+
+            Parent parent = new Parent(
+                    parentUser.getLast_name_mother(),
+                    parentUser.getLast_name_father(),
+                    parentUser.getPhoto_url(),
+                    Timestamp.valueOf(LocalDateTime.now()),
+                    Timestamp.valueOf(LocalDateTime.now()),
+                    children
+            );
+
+            Parent savedParent = repo.save(parent);
+
+            List<Authority> authorities = new ArrayList<>();
+            authorities.add(new Authority(AuthorityName.ROLE_PARENT));
+            authorities.add(new Authority(AuthorityName.READ));
+            authorities.add(new Authority(AuthorityName.WRITE));
+
+
+
+            User user = new User(
+                    parentUser.getEmail(),
+                    encodedPassword,
+                    true,
+                    Timestamp.valueOf(LocalDateTime.now()),
+                    authorities,
+                    savedParent
+            );
+
+            User savedUser = userRespository.save(user);
+
+            return savedParent;
         } catch (Exception e) {
             throw new InternalServerErrorException("Internal server error registering parent", e);
-        }
-    }
-
-
-    public boolean authenticateParent(String email, String password) {
-        try {
-            Parent parent = repo.findByEmail(email);
-            if (parent != null) {
-                return BCrypt.checkpw(password, parent.getPassword());
-            }
-            return false;
-        } catch (Exception e) {
-            throw new IncompleteDataException("Internal server error authenticating parent" + e);
         }
     }
 
@@ -84,7 +108,6 @@ public class ParentServiceImpl implements ParentService {
                     parent.getId(),
                     parent.getLast_name_mother(),
                     parent.getLast_name_father(),
-                    parent.getEmail(),
                     parent.getPhoto_url()
             );
 
