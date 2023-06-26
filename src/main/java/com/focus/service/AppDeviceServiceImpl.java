@@ -47,7 +47,7 @@ public class AppDeviceServiceImpl implements AppDeviceService {
             for (AppDevice appDevice : appDevices) {
                 AppDeviceDTO appDeviceDTO = new AppDeviceDTO(
                         appDevice.getId(),
-                        appDevice.getApp().getId(),
+                        appDevice.getApp().getName(),
                         appDevice.getApp().getLogo_url(),
                         appDevice.getApp().getName(),
                         appDevice.getBlock_period().getId(),
