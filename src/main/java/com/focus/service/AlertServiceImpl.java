@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//busca y recopila las alertas asociadas a un niño específico en la base de datos y las devuelve en forma
+// de una lista de objetos AlertDTO
+
 @Service
 public class AlertServiceImpl implements AlertService {
 

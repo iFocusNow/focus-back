@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//proporciona métodos para obtener, eliminar y guardar dispositivos de aplicaciones.
+// Además, realiza validaciones de existencia de las aplicaciones, periodos de bloqueo y dispositivos relacionados
+// antes de realizar las operaciones correspondientes en la base de datos.
+
 @Service
 public class AppDeviceServiceImpl implements AppDeviceService {
     @Autowired

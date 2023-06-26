@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//busca y recopila todas las aplicaciones disponibles en la base de datos y las devuelve en forma
+// de una lista de objetos AppDTO
+
 @Service
 public class AppServiceImpl implements AppService{
     @Autowired
