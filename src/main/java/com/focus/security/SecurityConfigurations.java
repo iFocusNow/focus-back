@@ -20,6 +20,8 @@ public class SecurityConfigurations {
             "/v3/api-docs/**",
             "/swagger-resources/**",
             "/swagger-ui/**",
+            "/swagger-ui.html**",
+            "/webjars/**"
             // -- login
             //"/api/login/**"
     };
@@ -36,24 +38,18 @@ public class SecurityConfigurations {
         //  Permit Cross Origins
         http.csrf().disable();
 
+        http.authorizeHttpRequests((auth) -> auth
+            .requestMatchers(AUTH_WHITELIST).permitAll()
+            .anyRequest().authenticated()
+        );
+
         // Permit all authentication requests
-        http.authorizeHttpRequests().requestMatchers("/api/parents/register-parent");
-        http.authorizeHttpRequests().anyRequest().authenticated();
+        // http.authorizeHttpRequests().requestMatchers(request -> request.getServletPath().startsWith("/swagger-ui/**")).permitAll();
+        // http.authorizeHttpRequests().requestMatchers(AUTH_WHITELIST).permitAll();
+        // http.authorizeHttpRequests().anyRequest().authenticated();
 
 
         return http.build();
-
-
-    //     http.authorizeHttpRequests( (auth) ->auth
-    //             .requestMatchers(AUTH_WHITELIST).permitAll()
-    //             .anyRequest().authenticated()
-    //             //.anyRequest().permitAll()
-
-    //     );
-
-    //     http.sessionManagement( (session)-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-    //     return http.build();
     }
 
     @Bean
