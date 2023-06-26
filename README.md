@@ -41,7 +41,7 @@ CREATE TYPE public.authority_type AS ENUM (
 #### Alert Types
 ```sql
 CREATE TYPE public.alert_type AS ENUM (
-	'BLOCK ENTRY',
+	'BLOCK_ENTRY',
 	'SOLICIT_UNBLOCK',
 	'PHONE_TIME_EXCEEDED');
 ```

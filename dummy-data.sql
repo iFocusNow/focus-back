@@ -18,11 +18,53 @@ VALUES('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', 'WRITE'::public.authority_type);
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
+
+-- Parents --
+
+INSERT INTO public.parents
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
+VALUES('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', '2023-05-28 09:15:00',  'Vidal', 'Falcon', 'https://www.4kigurumi.com/image/cache/catalog/kigurumi/penguin/Black-Penguin-Adult-Animal-Onesie-Kigurumi-Pajamas-2-190x190w.jpg', '2023-05-28 09:15:00');
+
+INSERT INTO public.parents
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
+VALUES('8d87427a-1024-48f7-a5ce-908d4b48f446', '2023-05-28 14:30:00', 'Doe', 'Anderson', 'https://clipart.info/images/minicovers/150368783867-dog-png-image-picture-download-dogs.png', '2023-05-28 14:30:00');
+
+INSERT INTO public.parents
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
+VALUES('c9f187ed-d1ae-437d-990d-6e07957d309f', '2023-05-28 18:45:00', 'Brown', 'Davis', 'https://miro.medium.com/v2/resize:fill:176:176/1*TzfP1ghe_d994dWtFWvaGg.jpeg', '2023-05-28 18:45:00');
+
+INSERT INTO public.parents
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
+VALUES('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', '2023-05-28 21:01:00', 'John', 'Smith','https://cdn.topmongo.com/packages/appinventor.ai_rostabr09.Floppa/icon_9cbef2.png', '2023-05-28 21:00:00');
+
+INSERT INTO public.parents
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
+VALUES('77c8a3f6-1fc3-485e-b8f9-9a54f269b34d', '2023-05-28 23:30:00', 'Wil', 'Miller', 'https://grid.gograph.com/dinosaur-002-stock-illustration_gg100248615.jpg', '2023-05-28 23:30:00');
+
+
+
 -- Users --
 
 INSERT INTO public.users
-(id, user_name, "password", active, password_last_update)
-values('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', 'avi@admin.com', crypt('pass', gen_salt('bf')) , true, '2023-05-28 09:15:00');
+(id, user_name, "password", active, password_last_update, parent_id)
+values('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', 'avi@admin.com', crypt('pass', gen_salt('bf')) , true, '2023-05-28 09:15:00', 'f23b7c3a-6657-4c57-a268-d78c0e1c6d1a');
+
+INSERT INTO public.users
+(id, user_name, "password", active, password_last_update, parent_id)
+values('8d87427a-1024-48f7-a5ce-908d4b48f446', 'doe@parent.com', crypt('pass', gen_salt('bf')) , true, '2023-05-28 09:15:00', '8d87427a-1024-48f7-a5ce-908d4b48f446');
+
+INSERT INTO public.users
+(id, user_name, "password", active, password_last_update, parent_id)
+values('c9f187ed-d1ae-437d-990d-6e07957d309f', 'brown@parent.com', crypt('pass', gen_salt('bf')) , true, '2023-05-28 09:15:00', 'c9f187ed-d1ae-437d-990d-6e07957d309f');
+
+INSERT INTO public.users
+(id, user_name, "password", active, password_last_update, parent_id)
+values('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', 'john@parent.com', crypt('pass', gen_salt('bf')) , true, '2023-05-28 09:15:00', '0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977');
+
+INSERT INTO public.users
+(id, user_name, "password", active, password_last_update, parent_id)
+values('77c8a3f6-1fc3-485e-b8f9-9a54f269b34d', 'will@parent.com', crypt('pass', gen_salt('bf')) , true, '2023-05-28 09:15:00', '77c8a3f6-1fc3-485e-b8f9-9a54f269b34d');
+
 
 -- UserAuthorities --
 
@@ -38,30 +80,55 @@ insert into public.users_authorities
 (user_id, authority_id)
 values('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', '0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977');
 
+insert into public.users_authorities
+(user_id, authority_id)
+values('8d87427a-1024-48f7-a5ce-908d4b48f446', '8d87427a-1024-48f7-a6ce-908d4b48f446');
 
--- Parents --
+insert into public.users_authorities
+(user_id, authority_id)
+values('8d87427a-1024-48f7-a5ce-908d4b48f446', 'c9f187ed-d1ae-437d-990d-6e07957d309f');
 
-INSERT INTO public.parents
-(id, created_at, email, last_name_father, last_name_mother, "password", photo_url, updated_at)
-VALUES('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', '2023-05-28 09:15:00', 'john@example.com', 'Smith', 'Johnson', 'password123', 'https://example.com/john.jpg', '2023-05-28 09:15:00');
+insert into public.users_authorities
+(user_id, authority_id)
+values('8d87427a-1024-48f7-a5ce-908d4b48f446', '0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977');
 
-INSERT INTO public.parents
-(id, created_at, email, last_name_father, last_name_mother, "password", photo_url, updated_at)
-VALUES('8d87427a-1024-48f7-a5ce-908d4b48f446', '2023-05-28 14:30:00', 'jane@example.com', 'Doe', 'Anderson', 'pass456', 'https://example.com/jane.jpg', '2023-05-28 14:30:00');
+insert into public.users_authorities
+(user_id, authority_id)
+values('c9f187ed-d1ae-437d-990d-6e07957d309f', '8d87427a-1024-48f7-a6ce-908d4b48f446');
 
-INSERT INTO public.parents
-(id, created_at, email, last_name_father, last_name_mother, "password", photo_url, updated_at)
-VALUES('c9f187ed-d1ae-437d-990d-6e07957d309f', '2023-05-28 18:45:00', 'michael@example.com', 'Brown', 'Davis', 'mysecretpass', 'https://example.com/michael.jpg', '2023-05-28 18:45:00');
+insert into public.users_authorities
+(user_id, authority_id)
+values('c9f187ed-d1ae-437d-990d-6e07957d309f', 'c9f187ed-d1ae-437d-990d-6e07957d309f');
 
-INSERT INTO public.parents
-(id, created_at, email, last_name_father, last_name_mother, "password", photo_url, updated_at)
-VALUES('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', '2023-05-28 21:01:00', 'sarah@example.com', 'Johnson', 'Smith', 'abc123', 'https://example.com/sarah.jpg', '2023-05-28 21:00:00');
+insert into public.users_authorities
+(user_id, authority_id)
+values('c9f187ed-d1ae-437d-990d-6e07957d309f', '0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977');
 
-INSERT INTO public.parents
-(id, created_at, email, last_name_father, last_name_mother, "password", photo_url, updated_at)
-VALUES('77c8a3f6-1fc3-485e-b8f9-9a54f269b34d', '2023-05-28 23:30:00', 'david@example.com', 'Wilson', 'Miller', 'qwerty', 'https://example.com/david.jpg', '2023-05-28 23:30:00');
+insert into public.users_authorities
+(user_id, authority_id)
+values('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', '8d87427a-1024-48f7-a6ce-908d4b48f446');
 
--- Children -- 
+insert into public.users_authorities
+(user_id, authority_id)
+values('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', 'c9f187ed-d1ae-437d-990d-6e07957d309f');
+
+insert into public.users_authorities
+(user_id, authority_id)
+values('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', '0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977');
+
+insert into public.users_authorities
+(user_id, authority_id)
+values('77c8a3f6-1fc3-485e-b8f9-9a54f269b34d', '8d87427a-1024-48f7-a6ce-908d4b48f446');
+
+insert into public.users_authorities
+(user_id, authority_id)
+values('77c8a3f6-1fc3-485e-b8f9-9a54f269b34d', 'c9f187ed-d1ae-437d-990d-6e07957d309f');
+
+insert into public.users_authorities
+(user_id, authority_id)
+values('77c8a3f6-1fc3-485e-b8f9-9a54f269b34d', '0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977');
+
+-- Children --
 
 INSERT INTO public.children
 (id, child_code, created_at, "name", updated_at, parent_id)
@@ -433,7 +500,7 @@ INSERT INTO public.links
 (id, "name", url, blockperiod_id, device_id)
 VALUES('a7694b4e-981e-4e46-8547-1ea8e4e1445b', 'IMDb', 'https://www.imdb.com', '2577d836-51c6-44b7-9e2f-3ce0a0e5c9db', '21fcbda2-cac5-4d6c-b9f7-109e2eaeec34');
 
--- AppDevices -- 
+-- AppDevices --
 
 INSERT INTO public.app_devices
 (id, app_id, blockperiod_id, device_id)

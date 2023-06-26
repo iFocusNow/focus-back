@@ -7,6 +7,7 @@ import com.focus.exceptions.DuplicateEntryException;
 import com.focus.exceptions.InternalServerErrorException;
 import com.focus.exceptions.ResourceNotFoundException;
 import com.focus.model.*;
+import com.focus.repository.AuthorityRepository;
 import com.focus.repository.ParentRepository;
 import com.focus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +29,9 @@ public class ParentServiceImpl implements ParentService {
     private ParentRepository repo;
     @Autowired
     private UserRepository userRespository;
+
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
     public List<ParentDTO> getAllParents() {
         try {
@@ -54,7 +59,6 @@ public class ParentServiceImpl implements ParentService {
 
     // Change to ParentUserRegisterDTO
     public Parent registerParent(ParentUserDTO parentUser) {
-        // TODO: FIX Authority save
         try {
             // user User to check if email is already registered
             User existingUser = userRespository.findByUserName(parentUser.getEmail());
@@ -76,12 +80,14 @@ public class ParentServiceImpl implements ParentService {
 
             Parent savedParent = repo.save(parent);
 
-            List<Authority> authorities = new ArrayList<>();
-            authorities.add(new Authority(AuthorityName.ROLE_PARENT));
-            authorities.add(new Authority(AuthorityName.READ));
-            authorities.add(new Authority(AuthorityName.WRITE));
-
-
+            List<String> authorityNames = Arrays.asList("ROLE_PARENT", "READ", "WRITE");
+            List<Authority> authorities = authorityNames.stream().map(authorityName -> {
+                Authority authority = authorityRepository.findByName(AuthorityName.valueOf(authorityName));
+                if (authority == null) {
+                    throw new ResourceNotFoundException("Authority not found with name " + authorityName);
+                }
+                return authority;
+            }).toList();
 
             User user = new User(
                     parentUser.getEmail(),
