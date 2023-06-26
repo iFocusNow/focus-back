@@ -1,3 +1,44 @@
+-- Authorities --
+
+insert into public.authorities
+(id, name)
+VALUES('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', 'ROLE_ADMIN'::public.authority_type);
+
+insert into public.authorities
+(id, name)
+VALUES('8d87427a-1024-48f7-a6ce-908d4b48f446', 'ROLE_PARENT'::public.authority_type);
+
+insert into public.authorities
+(id, name)
+VALUES('c9f187ed-d1ae-437d-990d-6e07957d309f', 'READ'::public.authority_type);
+
+insert into public.authorities
+(id, name)
+VALUES('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', 'WRITE'::public.authority_type);
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- Users --
+
+INSERT INTO public.users
+(id, user_name, "password", active, password_last_update)
+values('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', 'avi@admin.com', crypt('pass', gen_salt('bf')) , true, '2023-05-28 09:15:00');
+
+-- UserAuthorities --
+
+insert into public.users_authorities
+(user_id, authority_id)
+values('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', 'f23b7c3a-6657-4c57-a268-d78c0e1c6d1a');
+
+insert into public.users_authorities
+(user_id, authority_id)
+values('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', 'c9f187ed-d1ae-437d-990d-6e07957d309f');
+
+insert into public.users_authorities
+(user_id, authority_id)
+values('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', '0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977');
+
+
 -- Parents --
 
 INSERT INTO public.parents

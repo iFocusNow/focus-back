@@ -30,6 +30,15 @@ If both containers are running fine and without errors, then you can check local
 
 Cuando se crea la base de datos de Docker, es necesario crear los tipos de datos antes de crear los datos con Springboot.
 
+#### Authority Types
+```sql
+CREATE TYPE public.authority_type AS ENUM (
+	'ROLE_PARENT',
+	'ROLE_ADMIN',
+	'READ',
+	'WRITE');
+```
+
 #### Alert Types
 ```sql
 CREATE TYPE public.alert_type AS ENUM (

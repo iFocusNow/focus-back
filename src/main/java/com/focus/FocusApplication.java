@@ -24,43 +24,8 @@ public class FocusApplication {
 
 	@Bean
 	public CommandLineRunner mappingDemo(
-			AuthorityRepository authorityRepository,
-			UserRepository userRepository
 	) {
 		return args -> {
-			// Create a couple of Authority
-			authorityRepository.saveAll(List.of(
-						new Authority(AuthorityName.ROLE_ADMIN),
-						new Authority(AuthorityName.ROLE_PARENT),
-						new Authority(AuthorityName.READ),
-						new Authority(AuthorityName.WRITE)
-					)
-			);
-
-			userRepository.save(new User("avi@admin.com", new BCryptPasswordEncoder().encode("pass"), true, new Date(),
-					List.of(
-							authorityRepository.findByName(AuthorityName.ROLE_ADMIN),
-							authorityRepository.findByName(AuthorityName.READ),
-							authorityRepository.findByName(AuthorityName.WRITE)
-					)
-				)
-			);
-			userRepository.save(new User("john@parent.com", new BCryptPasswordEncoder().encode("pass"), true, new Date(),
-							List.of(
-									authorityRepository.findByName(AuthorityName.ROLE_PARENT),
-									authorityRepository.findByName(AuthorityName.READ),
-									authorityRepository.findByName(AuthorityName.WRITE)
-							)
-					)
-			);
-			userRepository.save(new User("mary@parent.com", new BCryptPasswordEncoder().encode("pass"), true, new Date(),
-							List.of(
-									authorityRepository.findByName(AuthorityName.ROLE_PARENT),
-									authorityRepository.findByName(AuthorityName.READ),
-									authorityRepository.findByName(AuthorityName.WRITE)
-							)
-					)
-			);
 		};
 	}
 }
