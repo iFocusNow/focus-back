@@ -58,7 +58,7 @@ public class ParentServiceImpl implements ParentService {
     }
 
     // Change to ParentUserRegisterDTO
-    public Parent registerParent(ParentUserDTO parentUser) {
+    public Boolean registerParent(ParentUserDTO parentUser) {
         try {
             // user User to check if email is already registered
             User existingUser = userRespository.findByUserName(parentUser.getEmail());
@@ -78,29 +78,40 @@ public class ParentServiceImpl implements ParentService {
                     children
             );
 
-            Parent savedParent = repo.save(parent);
+            try {
+                Parent savedParent = repo.save(parent);
 
-            List<String> authorityNames = Arrays.asList("ROLE_PARENT", "READ", "WRITE");
-            List<Authority> authorities = authorityNames.stream().map(authorityName -> {
-                Authority authority = authorityRepository.findByName(AuthorityName.valueOf(authorityName));
-                if (authority == null) {
-                    throw new ResourceNotFoundException("Authority not found with name " + authorityName);
+                List<String> authorityNames = Arrays.asList("ROLE_PARENT", "READ", "WRITE");
+                List<Authority> authorities = authorityNames.stream().map(authorityName -> {
+                    Authority authority = authorityRepository.findByName(AuthorityName.valueOf(authorityName));
+                    if (authority == null) {
+                        throw new ResourceNotFoundException("Authority not found with name " + authorityName);
+                    }
+                    return authority;
+                }).toList();
+
+                User user = new User(
+                        parentUser.getEmail(),
+                        encodedPassword,
+                        true,
+                        Timestamp.valueOf(LocalDateTime.now()),
+                        authorities,
+                        savedParent
+                );
+
+                try {
+                    userRespository.save(user);
+                } catch (Exception e) {
+                    repo.delete(savedParent);
+                    throw new InternalServerErrorException("Internal server error registering parent", e);
                 }
-                return authority;
-            }).toList();
 
-            User user = new User(
-                    parentUser.getEmail(),
-                    encodedPassword,
-                    true,
-                    Timestamp.valueOf(LocalDateTime.now()),
-                    authorities,
-                    savedParent
-            );
+                return true;
 
-            User savedUser = userRespository.save(user);
+            } catch (Exception e) {
+                throw new InternalServerErrorException("Internal server error registering parent", e);
+            }
 
-            return savedParent;
         } catch (Exception e) {
             throw new InternalServerErrorException("Internal server error registering parent", e);
         }

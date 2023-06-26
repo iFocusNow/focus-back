@@ -13,7 +13,7 @@ public interface ParentService {
     public List<ParentDTO> getAllParents();
     public ParentAccountDTO getParentById(UUID parentId);
     public Parent getById(UUID parentId);
-    public Parent registerParent(ParentUserDTO parentUser);
+    public Boolean registerParent(ParentUserDTO parentUser);
     public Boolean authenticateParent(String email, String password);
 
 }

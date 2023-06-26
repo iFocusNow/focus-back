@@ -26,7 +26,7 @@ public class ParentController {
     @PostMapping("/session/register-parent")
     public ResponseEntity<?> registerParent(@RequestBody ParentUserDTO parentUser) {
         try {
-            Parent registeredParent = service.registerParent(parentUser);
+            Boolean registeredParent = service.registerParent(parentUser);
             return new ResponseEntity<>(registeredParent, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             String errorMessage = "An error occurred: " + e.getMessage();
