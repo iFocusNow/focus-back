@@ -21,9 +21,9 @@ public class SecurityConfigurations {
             "/swagger-resources/**",
             "/swagger-ui/**",
             "/swagger-ui.html**",
-            "/webjars/**"
+            "/webjars/**",
             // -- login
-            //"/api/login/**"
+            "/api/session/**"
     };
 
     // @Bean

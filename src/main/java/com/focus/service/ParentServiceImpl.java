@@ -106,6 +106,22 @@ public class ParentServiceImpl implements ParentService {
         }
     }
 
+    public Boolean authenticateParent(String email, String password) {
+        try {
+            User user = userRespository.findByUserName(email);
+            if (user == null) {
+                throw new ResourceNotFoundException("User not found with email " + email);
+            }
+            if (!BCrypt.checkpw(password, user.getPassword())) {
+                throw new ResourceNotFoundException("Invalid password");
+            }
+
+            return true;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error authenticating parent", e);
+        }
+    }
+
     public ParentAccountDTO getParentById(UUID parentId) {
         try {
             Parent parent = repo.findById(parentId)

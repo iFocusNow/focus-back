@@ -93,3 +93,9 @@ Las siguientes guías ilustran cómo utilizar algunas características concretam
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
+### Acceso a Swagger
+
+Utilizar el siguiente link:
+```
+http://localhost:8080/swagger-ui/index.html#
+```

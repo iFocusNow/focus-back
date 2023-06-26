@@ -2,6 +2,7 @@ package com.focus.controller;
 
 import com.focus.dto.*;
 import com.focus.model.Parent;
+import com.focus.model.User;
 import com.focus.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RequestMapping("/api")
 public class ParentController {
 
@@ -21,11 +23,22 @@ public class ParentController {
     public ParentController(ParentService service) {
         this.service = service;
     }
-    @PostMapping("/parents/register-parent")
+    @PostMapping("/session/register-parent")
     public ResponseEntity<?> registerParent(@RequestBody ParentUserDTO parentUser) {
         try {
             Parent registeredParent = service.registerParent(parentUser);
             return new ResponseEntity<>(registeredParent, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            String errorMessage = "An error occurred: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+        }
+    }
+
+    @PostMapping("/session/authenticate-parent")
+    public ResponseEntity<?> authenticateParent(@RequestBody ParentAuthDTO parentAuthDTO) {
+        try {
+            Boolean authenticatedParent = service.authenticateParent(parentAuthDTO.getEmail(), parentAuthDTO.getPassword());
+            return new ResponseEntity<>(authenticatedParent, HttpStatus.OK);
         } catch (RuntimeException e) {
             String errorMessage = "An error occurred: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
