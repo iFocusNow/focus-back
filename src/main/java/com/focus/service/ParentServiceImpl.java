@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//Esta sección se encarga sobre el listado de padres, el registro de cada uno de ellos, la autenticación y el Id para relacionar con las demás funciones
 
 @Service
 public class ParentServiceImpl implements ParentService {

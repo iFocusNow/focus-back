@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//En este bloque se enfoca acerca al bloqueo de los links para los hijos, como el listar, mostrar y eliminar estos
+
 @Service
 public class LinkServiceImpl implements LinkService {
     @Autowired

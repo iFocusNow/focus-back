@@ -20,6 +20,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+//contiene varios métodos relacionados con la gestión de dispositivos ("Device") en el sistema
+//se crea una lista de objetos "DeviceDTO" basada en los dispositivos encontrados. Finalmente, se devuelve la lista de objetos "DeviceDTO".
+// utiliza el método findAllByChild() del repositorio "repo" para obtener una lista de dispositivos asociados al objeto "Child" con el identificador proporcionado
+//guarda el nuevo dispositivo en el repositorio y obtiene el dispositivo guardado.
+
 @Service
 public class DeviceServiceImpl implements DeviceService {
     @Autowired

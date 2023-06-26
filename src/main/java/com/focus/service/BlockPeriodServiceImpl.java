@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
 
+
+//permiten editar y crear períodos de bloqueo en el sistema. El método editBlockPeriod actualiza un período
+// de bloqueo existente con nuevos valores, mientras que el método save crea un nuevo período de bloqueo.
 @Service
 public class BlockPeriodServiceImpl implements BlockPeriodService {
     @Autowired

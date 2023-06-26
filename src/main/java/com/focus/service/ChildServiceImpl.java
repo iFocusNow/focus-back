@@ -23,6 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
+// métodos relacionados con la gestión de objetos "Child" en el sistema
+//  cada uno de los métodos, se manejan excepciones y se lanzan excepciones específicas
+//  (ResourceNotFoundException o ResolutionException) si ocurre algún error durante la ejecución.
 @Service
 public class ChildServiceImpl implements ChildService{
     @Autowired
