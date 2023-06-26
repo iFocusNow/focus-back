@@ -43,16 +43,16 @@ public class User {
     private List<Authority> authorities;
     @OneToOne
     @JoinColumn(name = "parent_id")
-    private Parent parent_id;
+    private Parent parent;
 
 
-    public User(String userName, String password, boolean active, Date passwordLastUpdate, List<Authority> authorities, Parent parent_id) {
+    public User(String userName, String password, boolean active, Date passwordLastUpdate, List<Authority> authorities, Parent parent) {
         this.userName = userName;
         this.password = password;
         this.active = active;
         this.passwordLastUpdate = passwordLastUpdate;
         this.authorities = authorities;
-        this.parent_id = parent_id;
+        this.parent = parent;
     }
 }
 

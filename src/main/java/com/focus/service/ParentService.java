@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface ParentService {
     public List<ParentDTO> getAllParents();
-    public ParentAccountDTO getParentById(UUID parentId);
+    public ParentAccountDTO getParent(String email);
     public Parent getById(UUID parentId);
     public Boolean registerParent(ParentUserDTO parentUser);
     public Boolean authenticateParent(String email, String password);

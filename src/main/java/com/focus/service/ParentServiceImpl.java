@@ -133,21 +133,23 @@ public class ParentServiceImpl implements ParentService {
         }
     }
 
-    public ParentAccountDTO getParentById(UUID parentId) {
+    public ParentAccountDTO getParent(String email) {
         try {
-            Parent parent = repo.findById(parentId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Parent not found with ID " + parentId));
+            User user = userRespository.findByUserName(email);
+            if (user == null) {
+                throw new ResourceNotFoundException("User not found with email " + email);
+            }
 
             ParentAccountDTO parentDTO = new ParentAccountDTO(
-                    parent.getId(),
-                    parent.getLast_name_mother(),
-                    parent.getLast_name_father(),
-                    parent.getPhoto_url()
+                    user.getParent().getId(),
+                    user.getParent().getLast_name_mother(),
+                    user.getParent().getLast_name_father(),
+                    user.getParent().getPhoto_url()
             );
 
             return parentDTO;
         } catch (Exception e) {
-            throw new InternalServerErrorException("Internal server error getting parent by id: " + parentId, e);
+            throw new InternalServerErrorException("Internal server error getting parent by id: ", e);
         }
     }
     public Parent getById(UUID parentId) {

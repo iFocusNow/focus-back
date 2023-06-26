@@ -16,7 +16,6 @@ import java.util.UUID;
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RequestMapping("/api")
 public class ParentController {
-
     private final ParentService service;
 
     @Autowired
@@ -52,9 +51,9 @@ public class ParentController {
         return new ResponseEntity<>(parentDTOs, HttpStatus.OK);
     }
 
-    @GetMapping("/parents/{parentId}")
-    public ResponseEntity<ParentAccountDTO> getParent(@PathVariable UUID parentId) {
-        ParentAccountDTO parentDTO = service.getParentById(parentId);
+    @GetMapping("/parent")
+    public ResponseEntity<ParentAccountDTO> getParent(@RequestParam("email") String email) {
+        ParentAccountDTO parentDTO = service.getParent(email);
         return new ResponseEntity<>(parentDTO, HttpStatus.OK);
     }
 
