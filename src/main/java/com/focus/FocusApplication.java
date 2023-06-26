@@ -28,4 +28,5 @@ public class FocusApplication {
 		return args -> {
 		};
 	}
+}
 
