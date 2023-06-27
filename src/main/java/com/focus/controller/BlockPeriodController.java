@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+@CrossOrigin(origins = "https://ifocusnow.azurewebsites.net:4200", allowedHeaders = "*")
 @RequestMapping("/api")
 public class BlockPeriodController {
     @Autowired
