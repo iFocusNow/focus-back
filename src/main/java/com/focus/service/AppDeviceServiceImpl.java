@@ -45,8 +45,9 @@ public class AppDeviceServiceImpl implements AppDeviceService {
 
             for (AppDevice appDevice : appDevices) {
                 AppDeviceDTO appDeviceDTO = new AppDeviceDTO(
-                        appDevice.getId(),
+                        appDevice.getDevice().getId(),
                         appDevice.getApp().getName(),
+                        appDevice.getApp().getId(),
                         appDevice.getApp().getLogo_url(),
                         appDevice.getApp().getName(),
                         appDevice.getBlock_period().getId(),
@@ -71,14 +72,14 @@ public class AppDeviceServiceImpl implements AppDeviceService {
         try {
             List<AppDevice> appDevices = repo.findByDeviceAndApp(device_id, app_id);
 
-            if (appDevices.isEmpty()) return false;
-            if (!appDevices.isEmpty()) {
-                for (AppDevice appDevice : appDevices) {
-                    repo.delete(appDevice);
-                }
-                return true;
+            if (appDevices.isEmpty()) {
+                throw new ResourceNotFoundException("No app found for device with id: " + device_id + " and app with id: " + app_id);
             }
-            return false;
+
+            for (AppDevice appDevice : appDevices) {
+                repo.delete(appDevice);
+            }
+            return true;
         } catch (Exception e) {
             throw new InternalServerErrorException("Internal server error", e);
         }

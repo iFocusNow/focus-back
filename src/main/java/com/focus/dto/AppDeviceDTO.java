@@ -13,6 +13,7 @@ import java.util.UUID;
 public class AppDeviceDTO {
     private UUID device_id;
     private String app_name;
+    private UUID app_id;
     private String logo_url;
     private String name;
     private UUID block_period_id;
