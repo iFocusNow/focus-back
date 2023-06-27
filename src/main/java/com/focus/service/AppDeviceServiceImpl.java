@@ -1,12 +1,11 @@
 package com.focus.service;
 
+import com.focus.dto.AppDeviceCreateDTO;
 import com.focus.dto.AppDeviceDTO;
 import com.focus.exceptions.InternalServerErrorException;
 import com.focus.exceptions.ResourceNotFoundException;
-import com.focus.model.App;
 import com.focus.model.AppDevice;
 import com.focus.model.BlockPeriod;
-import com.focus.model.Device;
 import com.focus.repository.AppDeviceRepository;
 import com.focus.repository.AppRepository;
 import com.focus.repository.BlockPeriodRepository;
@@ -85,18 +84,29 @@ public class AppDeviceServiceImpl implements AppDeviceService {
         }
     }
 
-    public boolean save(AppDevice appDevice) {
+    public boolean save(AppDeviceCreateDTO appDevice) {
         try {
-            if (appRepository.findById(appDevice.getApp().getId()).isEmpty()) return false;
-            if (blockPeriodRepository.findById(appDevice.getBlock_period().getId()).isEmpty()) return false;
-            if (deviceRepository.findById(appDevice.getDevice().getId()).isEmpty()) return false;
+            // create a block period
+            BlockPeriod blockPeriod = new BlockPeriod(
+                    appDevice.getIs_monday(),
+                    appDevice.getIs_tuesday(),
+                    appDevice.getIs_wednesday(),
+                    appDevice.getIs_thursday(),
+                    appDevice.getIs_friday(),
+                    appDevice.getIs_saturday(),
+                    appDevice.getIs_sunday()
+            );
+            BlockPeriod savedBlockPeriod = blockPeriodRepository.save(blockPeriod);
 
-            App appFound = appRepository.findById(appDevice.getApp().getId()).get();
-            BlockPeriod blockPeriodFound = blockPeriodRepository.findById(appDevice.getBlock_period().getId()).get();
-            Device deviceFound = deviceRepository.findById(appDevice.getDevice().getId()).get();
+            // create an appDevice
+            AppDevice newAppDevice = new AppDevice(
+                    deviceRepository.findById(appDevice.getDevice_id()).get(),
+                    appRepository.findById(appDevice.getApp_id()).get(),
+                    savedBlockPeriod
+            );
 
-            AppDevice newAppDevice = new AppDevice(deviceFound, appFound, blockPeriodFound);
-            AppDevice savedAppDevice = repo.save(newAppDevice);
+            repo.save(newAppDevice);
+
             return true;
         }catch (Exception e) {
             throw new InternalServerErrorException("Internal server error", e);

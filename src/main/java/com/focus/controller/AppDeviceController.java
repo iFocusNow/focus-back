@@ -1,5 +1,6 @@
 package com.focus.controller;
 
+import com.focus.dto.AppDeviceCreateDTO;
 import com.focus.dto.AppDeviceDTO;
 import com.focus.model.AppDevice;
 import com.focus.service.AppDeviceService;
@@ -30,8 +31,8 @@ public class AppDeviceController {
     }
 
     @PostMapping("/appDevices/create")
-    public ResponseEntity<Boolean> createAppDevice(@RequestBody AppDevice appDevice) {
-        boolean isCreated = appDeviceService.save(appDevice);
+    public ResponseEntity<Boolean> createAppDevice(@RequestBody AppDeviceCreateDTO appDeviceCreateDTO) {
+        boolean isCreated = appDeviceService.save(appDeviceCreateDTO);
         return new ResponseEntity<>(isCreated,HttpStatus.CREATED);
     }
 }
