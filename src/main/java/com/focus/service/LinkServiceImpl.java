@@ -2,6 +2,7 @@ package com.focus.service;
 
 import com.focus.dto.AppDeviceDTO;
 import com.focus.dto.LinkBlockPeriodDTO;
+import com.focus.dto.LinkCreateDTO;
 import com.focus.exceptions.InternalServerErrorException;
 import com.focus.exceptions.ResourceNotFoundException;
 import com.focus.model.BlockPeriod;
@@ -74,18 +75,32 @@ public class LinkServiceImpl implements LinkService {
         }
     }
 
-    public boolean save(Link link) {
+    public boolean save(LinkCreateDTO link) {
         try {
-            if(deviceRepository.findById(link.getDevice().getId()).isEmpty()) return false;
-            if(blockPeriodRepository.findById(link.getBlock_period().getId()).isEmpty()) return false;
-            if(link.getName().isEmpty()) return false;
-            if(link.getUrl().isEmpty()) return false;
+            // Create block period
+            BlockPeriod blockPeriod = new BlockPeriod(
+                    link.getIs_monday(),
+                    link.getIs_tuesday(),
+                    link.getIs_wednesday(),
+                    link.getIs_thursday(),
+                    link.getIs_friday(),
+                    link.getIs_saturday(),
+                    link.getIs_sunday()
+            );
+            BlockPeriod savedBlockPeriod = blockPeriodRepository.save(blockPeriod);
 
-            Device deviceFound = deviceRepository.findById(link.getDevice().getId()).get();
-            BlockPeriod blockPeriodFound = blockPeriodRepository.findById(link.getBlock_period().getId()).get();
+            // Get device
 
-            Link newlink = new Link(deviceFound, blockPeriodFound, link.getName(), link.getUrl());
-            Link savedLink = repo.save(newlink);
+            // Create link
+            Link newLink = new Link(
+                    deviceRepository.findById(link.getDevice_id()).get(),
+                    savedBlockPeriod,
+                    link.getName(),
+                    link.getUrl()
+            );
+
+            repo.save(newLink);
+
             return true;
         } catch (Exception e) {
            throw new InternalServerErrorException("Error saving link:",e);

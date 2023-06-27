@@ -1,6 +1,7 @@
 package com.focus.controller;
 
 import com.focus.dto.LinkBlockPeriodDTO;
+import com.focus.dto.LinkCreateDTO;
 import com.focus.model.Link;
 import com.focus.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class LinkController {
     }
 
     @PostMapping("/links/create")
-    public ResponseEntity<Boolean> createLink(@RequestBody Link link){
-        boolean isCreated = linkService.save(link);
+    public ResponseEntity<Boolean> createLink(@RequestBody LinkCreateDTO linkCreateDTO) {
+        boolean isCreated = linkService.save(linkCreateDTO);
         return new ResponseEntity<>(isCreated,HttpStatus.CREATED);
     }
 
