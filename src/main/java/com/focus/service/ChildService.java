@@ -15,6 +15,7 @@ public interface ChildService {
     public Child saveNew(Child child, Parent parent);
     public Child listById(UUID id);
     public ChildEditDTO listChildDTO(UUID id);
+    public boolean deleteById(UUID id);
     public long countChild();
     List<ChildDTO> getParentChildren(UUID parentId);
 }

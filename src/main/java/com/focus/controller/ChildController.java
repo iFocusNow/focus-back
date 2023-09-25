@@ -34,6 +34,15 @@ public class ChildController {
         List<ChildDTO> childrenDTOs = childService.getParentChildren(parentId);
         return new ResponseEntity<>(childrenDTOs, HttpStatus.OK);
     }
+    @DeleteMapping("/delete/child/{child_id}")
+    public ResponseEntity<Boolean> deleteChild(@PathVariable("child_id") UUID child_id) {
+        boolean response = false;
+        if (child_id != null) {
+            response = childService.deleteById(child_id);
+        }
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
     @PutMapping("/edit/child/{child_id}")
     public ResponseEntity<ChildEditDTO> updateChild (@PathVariable("child_id") UUID child_id, @RequestBody ChildDeviceDTO child) {
         Child newChild = childService.listById(child_id);

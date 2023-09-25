@@ -5,13 +5,8 @@ import com.focus.dto.ChildEditDTO;
 import com.focus.dto.DeviceDTO;
 import com.focus.exceptions.InternalServerErrorException;
 import com.focus.exceptions.ResourceNotFoundException;
-import com.focus.model.Alert;
-import com.focus.model.Child;
-import com.focus.model.Device;
-import com.focus.model.Parent;
-import com.focus.repository.ChildRepository;
-import com.focus.repository.DeviceRepository;
-import com.focus.repository.ParentRepository;
+import com.focus.model.*;
+import com.focus.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +16,7 @@ import java.lang.module.ResolutionException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -35,6 +31,12 @@ public class ChildServiceImpl implements ChildService{
     private DeviceRepository deviceRepository;
     @Autowired
     private  ParentRepository parentRepository;
+    @Autowired
+    private AppDeviceRepository appDeviceRepository;
+    @Autowired
+    private LinkRepository linkRepository;
+    @Autowired
+    private AlertRepository alertRepository;
 
     @Transactional
     public Child save(Child child) {
@@ -104,6 +106,54 @@ public class ChildServiceImpl implements ChildService{
             throw new ResolutionException("Internal server error", e);
         }
     }
+
+    public boolean deleteById(UUID id) {
+        Child child = childRepository.findById(id).get();
+        if (child == null) {
+            throw new ResourceNotFoundException("Child not found");
+        }
+
+        List<Device> devices = deviceRepository.findAllByChild(id);
+        if (devices == null) {
+            throw new ResourceNotFoundException("Devices not found with child id: " + id);
+        }
+
+        for (Device device : devices) {
+            List<AppDevice> appDevices =  appDeviceRepository.findAllByDevice(device.getId());
+
+            for (AppDevice appDevice : appDevices) {
+                appDeviceRepository.deleteById(appDevice.getId());
+            }
+
+            List<Link> links = linkRepository.findAllByDevice(device.getId());
+            for (Link link: links) {
+                linkRepository.deleteById(link.getId());
+            }
+        }
+
+        try {
+            deviceRepository.deleteAll(devices);
+        } catch (Exception e) {
+            throw new ResolutionException("Error while deleting devices: ", e);
+        }
+
+        List<Alert> alerts = alertRepository.findAllByChild(id);
+        try {
+            for (Alert alert: alerts) {
+                alertRepository.deleteById(alert.getId());
+            }
+        } catch (Exception e) {
+            throw new ResolutionException("Error while deleting alerts: ", e);
+        }
+
+        try {
+            childRepository.delete(child);
+            return true;
+        } catch (Exception e) {
+            throw new ResolutionException("Error while deleting child: ", e);
+        }
+    }
+
     public long countChild() {
         try {
             return childRepository.count();
@@ -131,6 +181,5 @@ public class ChildServiceImpl implements ChildService{
             throw new ResolutionException("Internal server error", e);
         }
     }
-
 
 }
