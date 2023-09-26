@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -59,6 +60,19 @@ public class ParentController {
     public ResponseEntity<List<ParentAdminDTO>> getAdminParents() {
         List<ParentAdminDTO> parentAdminDTOS = service.getAllParentAdmin();
         return new ResponseEntity<>(parentAdminDTOS, HttpStatus.OK);
+    }
+
+    @PutMapping("/session/recover-password")
+    public ResponseEntity<Boolean> recoverPassword(@RequestBody PasswordDTO passwordDTO) {
+        String updatedPassword = service.updatePassword(passwordDTO);
+
+        if (Objects.equals(updatedPassword, "")) {
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+
+        // TODO: Send email :)
+
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
     // Test api

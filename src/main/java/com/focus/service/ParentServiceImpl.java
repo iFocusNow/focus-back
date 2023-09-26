@@ -1,9 +1,6 @@
 package com.focus.service;
 
-import com.focus.dto.ParentAccountDTO;
-import com.focus.dto.ParentAdminDTO;
-import com.focus.dto.ParentDTO;
-import com.focus.dto.ParentUserDTO;
+import com.focus.dto.*;
 import com.focus.exceptions.DuplicateEntryException;
 import com.focus.exceptions.InternalServerErrorException;
 import com.focus.exceptions.ResourceNotFoundException;
@@ -15,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 //Esta sección se encarga sobre el listado de padres, el registro de cada uno de ellos, la autenticación y el Id para relacionar con las demás funciones
 
@@ -224,5 +219,46 @@ public class ParentServiceImpl implements ParentService {
         } catch (Exception e) {
             throw new InternalServerErrorException("Internal server error getting parents", e);
         }
+    }
+
+    public String updatePassword(PasswordDTO passwordDTO) {
+        try {
+            User newUser = userRespository.findByEmail(passwordDTO.getEmail());
+
+            Parent parent = repo.findById(newUser.getParent().getId()).get();
+
+            if (!Objects.equals(parent.getLast_name_father(), passwordDTO.getLast_name_father()) || !Objects.equals(parent.getLast_name_mother(), passwordDTO.getLast_name_mother())) {
+                return "";
+            }
+
+            // Generate a new random password
+            StringBuilder password = getStringBuilder();
+            String strPassword = password.toString();
+
+            // Save encrypted password
+            String encodedPassword = BCrypt.hashpw(strPassword, BCrypt.gensalt());
+            newUser.setPassword(encodedPassword);
+            newUser.setPasswordLastUpdate(Timestamp.valueOf(LocalDateTime.now()));
+            userRespository.save(newUser);
+
+            // Return password to send on email
+            return strPassword;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error updating password: ", e);
+        }
+    }
+
+    private static StringBuilder getStringBuilder() {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+        int PASSWORD_LENGTH = 10;
+        Random random = new SecureRandom();
+        StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
+
+        for (int i = 0; i < PASSWORD_LENGTH; i++) {
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            char randomChar = CHARACTERS.charAt(randomIndex);
+            password.append(randomChar);
+        }
+        return password;
     }
 }
