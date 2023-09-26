@@ -1,6 +1,7 @@
 package com.focus.service;
 
 import com.focus.dto.ParentAccountDTO;
+import com.focus.dto.ParentAdminDTO;
 import com.focus.dto.ParentDTO;
 import com.focus.dto.ParentUserDTO;
 import com.focus.exceptions.DuplicateEntryException;
@@ -194,6 +195,34 @@ public class ParentServiceImpl implements ParentService {
 
         } catch (Exception e) {
             throw new InternalServerErrorException("Internal server error getting parent by id: " + parentId, e);
+        }
+    }
+
+    public List<ParentAdminDTO> getAllParentAdmin() {
+        try {
+            // List parents
+            List<Parent> parents = repo.findAll();
+            if (parents.isEmpty()) {
+                throw new ResourceNotFoundException("Parents not found");
+            }
+
+            // Get if user is enabled
+            List<ParentAdminDTO> parentAdminDTOs = new ArrayList<>();
+            for (Parent parent : parents) {
+                User user = userRespository.findByParentId(parent.getId());
+                ParentAdminDTO parentAdminDTO = new ParentAdminDTO(
+                        parent.getId(),
+                        parent.getLast_name_mother(),
+                        parent.getLast_name_father(),
+                        parent.getCreated_at(),
+                        parent.getUpdated_at(),
+                        user.isActive()
+                );
+                parentAdminDTOs.add(parentAdminDTO);
+            }
+            return parentAdminDTOs;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error getting parents", e);
         }
     }
 }

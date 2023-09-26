@@ -55,6 +55,12 @@ public class ParentController {
         }
     }
 
+    @GetMapping("/session/admin-parents")
+    public ResponseEntity<List<ParentAdminDTO>> getAdminParents() {
+        List<ParentAdminDTO> parentAdminDTOS = service.getAllParentAdmin();
+        return new ResponseEntity<>(parentAdminDTOS, HttpStatus.OK);
+    }
+
     // Test api
     @GetMapping("/parents")
     public ResponseEntity<List<ParentDTO>> getAllParents() {
