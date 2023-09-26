@@ -75,7 +75,8 @@ public class ParentServiceImpl implements ParentService {
                     parentUser.getPhoto_url(),
                     Timestamp.valueOf(LocalDateTime.now()),
                     Timestamp.valueOf(LocalDateTime.now()),
-                    children
+                    children,
+                    true
             );
 
             try {
@@ -120,9 +121,15 @@ public class ParentServiceImpl implements ParentService {
     public Boolean authenticateParent(String email, String password) {
         try {
             User user = userRespository.findByUserName(email);
+            if (!user.getParent().is_enabled()) {
+                // User is disabled
+                return false;
+            }
+
             if (user == null) {
                 throw new ResourceNotFoundException("User not found with email " + email);
             }
+
             if (!BCrypt.checkpw(password, user.getPassword())) {
                 throw new ResourceNotFoundException("Invalid password");
             }

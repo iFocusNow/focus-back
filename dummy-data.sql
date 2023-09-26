@@ -22,24 +22,24 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- Parents --
 
 INSERT INTO public.parents
-(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
-VALUES('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', '2023-05-28 09:15:00',  'Vidal', 'Falcon', 'https://www.4kigurumi.com/image/cache/catalog/kigurumi/penguin/Black-Penguin-Adult-Animal-Onesie-Kigurumi-Pajamas-2-190x190w.jpg', '2023-05-28 09:15:00');
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at, is_enabled)
+VALUES('f23b7c3a-6657-4c57-a268-d78c0e1c6d1a', '2023-05-28 09:15:00',  'Vidal', 'Falcon', 'https://www.4kigurumi.com/image/cache/catalog/kigurumi/penguin/Black-Penguin-Adult-Animal-Onesie-Kigurumi-Pajamas-2-190x190w.jpg', '2023-05-28 09:15:00', true);
 
 INSERT INTO public.parents
-(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
-VALUES('8d87427a-1024-48f7-a5ce-908d4b48f446', '2023-05-28 14:30:00', 'Doe', 'Anderson', 'https://clipart.info/images/minicovers/150368783867-dog-png-image-picture-download-dogs.png', '2023-05-28 14:30:00');
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at, is_enabled)
+VALUES('8d87427a-1024-48f7-a5ce-908d4b48f446', '2023-05-28 14:30:00', 'Doe', 'Anderson', 'https://clipart.info/images/minicovers/150368783867-dog-png-image-picture-download-dogs.png', '2023-05-28 14:30:00', true);
 
 INSERT INTO public.parents
-(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
-VALUES('c9f187ed-d1ae-437d-990d-6e07957d309f', '2023-05-28 18:45:00', 'Brown', 'Davis', 'https://miro.medium.com/v2/resize:fill:176:176/1*TzfP1ghe_d994dWtFWvaGg.jpeg', '2023-05-28 18:45:00');
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at, is_enabled)
+VALUES('c9f187ed-d1ae-437d-990d-6e07957d309f', '2023-05-28 18:45:00', 'Brown', 'Davis', 'https://miro.medium.com/v2/resize:fill:176:176/1*TzfP1ghe_d994dWtFWvaGg.jpeg', '2023-05-28 18:45:00', true);
 
 INSERT INTO public.parents
-(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
-VALUES('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', '2023-05-28 21:01:00', 'John', 'Smith','https://cdn.topmongo.com/packages/appinventor.ai_rostabr09.Floppa/icon_9cbef2.png', '2023-05-28 21:00:00');
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at, is_enabled)
+VALUES('0c8ad0a7-6e7b-4eb1-90b7-1f36f07b4977', '2023-05-28 21:01:00', 'John', 'Smith','https://cdn.topmongo.com/packages/appinventor.ai_rostabr09.Floppa/icon_9cbef2.png', '2023-05-28 21:00:00', true);
 
 INSERT INTO public.parents
-(id, created_at, last_name_father, last_name_mother, photo_url, updated_at)
-VALUES('77c8a3f6-1fc3-485e-b8f9-9a54f269b34d', '2023-05-28 23:30:00', 'Wil', 'Miller', 'https://grid.gograph.com/dinosaur-002-stock-illustration_gg100248615.jpg', '2023-05-28 23:30:00');
+(id, created_at, last_name_father, last_name_mother, photo_url, updated_at, is_enabled)
+VALUES('77c8a3f6-1fc3-485e-b8f9-9a54f269b34d', '2023-05-28 23:30:00', 'Wil', 'Miller', 'https://grid.gograph.com/dinosaur-002-stock-illustration_gg100248615.jpg', '2023-05-28 23:30:00', true);
 
 
 
