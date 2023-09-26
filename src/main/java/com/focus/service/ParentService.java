@@ -15,5 +15,6 @@ public interface ParentService {
     public Parent getById(UUID parentId);
     public Boolean registerParent(ParentUserDTO parentUser);
     public Boolean authenticateParent(String email, String password);
+    public Boolean enableUser(UUID parentId);
 
 }

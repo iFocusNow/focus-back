@@ -8,4 +8,7 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
     public User findByUserName(String userName);
+
+    @Query(value = "SELECT * FROM users WHERE parent_id = ?1", nativeQuery = true)
+    public User findByParentId(UUID parentId);
 }

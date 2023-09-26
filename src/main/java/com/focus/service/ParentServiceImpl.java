@@ -120,6 +120,10 @@ public class ParentServiceImpl implements ParentService {
     public Boolean authenticateParent(String email, String password) {
         try {
             User user = userRespository.findByUserName(email);
+            if (!user.isActive()) {
+                return false;
+            }
+
             if (user == null) {
                 throw new ResourceNotFoundException("User not found with email " + email);
             }
@@ -160,6 +164,34 @@ public class ParentServiceImpl implements ParentService {
             }
             parent.setChildren(null);
             return parent;
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error getting parent by id: " + parentId, e);
+        }
+    }
+    public Boolean enableUser(UUID parentId) {
+        try {
+            User newUser = userRespository.findByParentId(parentId);
+            if (newUser == null) {
+                throw new ResourceNotFoundException("User not found with ID " + parentId);
+            }
+
+            Parent newParent = repo.findById(parentId).get();
+            if (newParent == null) {
+                throw new ResourceNotFoundException("Parent not found with ID " + parentId);
+            }
+
+            // Toggle active/inactive
+             newUser.setActive(!newUser.isActive());
+
+            // Update recent change
+            newParent.setUpdated_at(Timestamp.valueOf(LocalDateTime.now()));
+
+            // Save changes
+            userRespository.save(newUser);
+            repo.save(newParent);
+
+            return newUser.isActive();
+
         } catch (Exception e) {
             throw new InternalServerErrorException("Internal server error getting parent by id: " + parentId, e);
         }

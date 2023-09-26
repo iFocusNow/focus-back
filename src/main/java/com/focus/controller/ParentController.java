@@ -44,6 +44,17 @@ public class ParentController {
         }
     }
 
+    @PutMapping("/session/toggle-enable/{parent_id}")
+    public ResponseEntity<Boolean> toggleEnableUser(@PathVariable("parent_id") UUID parent_id) {
+        boolean response;
+        if (parent_id != null) {
+            response = service.enableUser(parent_id);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     // Test api
     @GetMapping("/parents")
     public ResponseEntity<List<ParentDTO>> getAllParents() {
