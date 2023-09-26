@@ -1,8 +1,8 @@
 package com.focus.controller;
 
 import com.focus.dto.*;
-import com.focus.model.Parent;
-import com.focus.model.User;
+import com.focus.exceptions.InternalServerErrorException;
+import com.focus.service.EmailService;
 import com.focus.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +18,12 @@ import java.util.UUID;
 @RequestMapping("/api")
 public class ParentController {
     private final ParentService service;
+    private final EmailService emailService;
 
     @Autowired
-    public ParentController(ParentService service) {
+    public ParentController(ParentService service, EmailService emailService) {
         this.service = service;
+        this.emailService = emailService;
     }
     @PostMapping("/session/register-parent")
     public ResponseEntity<?> registerParent(@RequestBody ParentUserDTO parentUser) {
@@ -70,7 +72,15 @@ public class ParentController {
             return new ResponseEntity<>(false, HttpStatus.OK);
         }
 
-        // TODO: Send email :)
+        String to = passwordDTO.getEmail();
+        String subject = "Recuperación de credenciales - Focus Web";
+        String text = "Esta es tu nuevo contraseña: " + updatedPassword + "\nPorfavor almacenala en un lugar seguro.";
+
+        try {
+            emailService.sendEmail(to, subject, text);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Internal server error sending credentials email: ", e);
+        }
 
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
