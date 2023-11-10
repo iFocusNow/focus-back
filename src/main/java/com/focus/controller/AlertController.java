@@ -20,9 +20,9 @@ public class AlertController {
         this.alertService = alertService;
     }
 
-    @GetMapping("/alerts/get/{childId}")
-    public ResponseEntity<List<AlertDTO>> getChildAlerts(@PathVariable UUID childId) {
-        List<AlertDTO> alertDTOs = alertService.getChildAlerts(childId);
+    @GetMapping("/alerts/{parent_id}")
+    public ResponseEntity<List<AlertDTO>> getAlerts(@PathVariable UUID parent_id) {
+        List<AlertDTO> alertDTOs = alertService.getAlerts(parent_id);
         return new ResponseEntity<>(alertDTOs, HttpStatus.OK);
     }
 }

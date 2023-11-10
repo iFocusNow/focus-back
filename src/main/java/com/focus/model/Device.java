@@ -35,6 +35,8 @@ public class Device {
     private List<Link> links;
     @OneToMany(mappedBy = "device")
     private List<AppDevice> app_devices;
+    @OneToMany(mappedBy = "device")
+    private List<Alert> alerts;
 
     public Device(Child child, DeviceType type, String brand) {
         this.child = child;

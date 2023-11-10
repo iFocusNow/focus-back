@@ -3,10 +3,7 @@ package com.focus.service;
 import com.focus.dto.DeviceDTO;
 import com.focus.exceptions.InternalServerErrorException;
 import com.focus.exceptions.ResourceNotFoundException;
-import com.focus.model.AppDevice;
-import com.focus.model.Child;
-import com.focus.model.Device;
-import com.focus.model.Link;
+import com.focus.model.*;
 import com.focus.repository.AppDeviceRepository;
 import com.focus.repository.ChildRepository;
 import com.focus.repository.DeviceRepository;
@@ -74,6 +71,7 @@ public class DeviceServiceImpl implements DeviceService {
         try {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             child.setUpdated_at(timestamp);
+
             Device newDevice = new Device(
                     child,
                     device.getType(),

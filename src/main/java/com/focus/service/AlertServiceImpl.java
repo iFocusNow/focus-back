@@ -5,6 +5,7 @@ import com.focus.exceptions.InternalServerErrorException;
 import com.focus.exceptions.ResourceNotFoundException;
 import com.focus.model.Alert;
 import com.focus.model.Child;
+import com.focus.model.Device;
 import com.focus.repository.ChildRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,27 +26,29 @@ public class AlertServiceImpl implements AlertService {
     }
 
     @Override
-    public List<AlertDTO> getChildAlerts(UUID childId) {
+    public List<AlertDTO> getAlerts(UUID parent_id) {
         try {
-            Child child = childRepository.findById(childId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Child not found with id: " + childId.toString()));
+        // get children by parent_id
+        List<Child> children = childRepository.findAllByParentId(parent_id);
+        if (children == null) {
+            throw new ResourceNotFoundException("Children not found");
+        }
 
-            List<AlertDTO> alertDTOs = new ArrayList<>();
-            try {
-                List<Alert> alerts = child.getAlerts();
+        // get alertDTOs from devices
+        List<AlertDTO> alertDTOs = new ArrayList<>();
+        for (Child child : children) {
+            List<Device> devices = child.getDevices();
+            for (Device device : devices) {
+                List<Alert> alerts = device.getAlerts();
                 for (Alert alert : alerts) {
-                    AlertDTO alertDTO = new AlertDTO(
-                            alert.getChild().getId(),
-                            alert.getChild().getName(),
-                            alert.getType().toString()
-                    );
-                    alertDTOs.add(alertDTO);
+                    alertDTOs.add(new AlertDTO(child.getId(), child.getName(), alert.getType().toString()));
                 }
-            } catch (Exception e) {
-                throw new InternalServerErrorException("Internal server error", e);
             }
+        }
 
-            return alertDTOs;
+        return alertDTOs;
+
+
         } catch (Exception e) {
             throw new InternalServerErrorException("Internal server error", e);
         }

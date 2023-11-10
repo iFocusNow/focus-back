@@ -199,44 +199,44 @@ VALUES('d7a8691f-8f4d-407e-b7b9-ba2821f4813c', 'Lenovo', 'PHONE', '1f2ab978-5b76
 -- Alerts --
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('a33e90e4-3829-4c17-bb0e-3456b896a6e5', '2023-05-29 08:30:00', 'BLOCK_ENTRY', '2023-05-29 08:30:00', 'a8a11d01-ef85-4a76-9a87-af5d4b1f4b8c');
+(id, created_at, "type", updated_at, device_id)
+VALUES('a33e90e4-3829-4c17-bb0e-3456b896a6e5', '2023-05-29 08:30:00', 'BLOCK_ENTRY', '2023-05-29 08:30:00', 'b073bce7-d10b-4aa7-af2a-8e81a7fb7dd1');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('68c722f4-03ef-40e7-8db7-9b0e3e9ab08a', '2023-05-29 12:45:00', 'SOLICIT_UNBLOCK', '2023-05-29 12:45:00', '74f1bca2-6a6b-4ef3-b0e4-591e9e5e8c52');
+(id, created_at, "type", updated_at, device_id)
+VALUES('68c722f4-03ef-40e7-8db7-9b0e3e9ab08a', '2023-05-29 12:45:00', 'SOLICIT_UNBLOCK', '2023-05-29 12:45:00', '56dbdb92-0da2-40a7-9981-0ff4e6b7d604');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('be0f4f97-c51b-41d5-8367-0d2f3a972f1c', '2023-05-29 15:00:00', 'PHONE_TIME_EXCEEDED', '2023-05-29 15:00:00', '3c71218f-0214-4a17-9b6d-0c96cc5f83a4');
+(id, created_at, "type", updated_at, device_id)
+VALUES('be0f4f97-c51b-41d5-8367-0d2f3a972f1c', '2023-05-29 15:00:00', 'PHONE_TIME_EXCEEDED', '2023-05-29 15:00:00', '6d3b5e5d-0ef3-43e4-b87a-2e3a4609f5b5');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('0de041a1-dcac-4f89-ae4c-9cc4e502e3d7', '2023-05-29 18:15:00', 'BLOCK_ENTRY', '2023-05-29 18:15:00', 'bbd76f12-05b4-4c76-bd2f-d0191a4d5de9');
+(id, created_at, "type", updated_at, device_id)
+VALUES('0de041a1-dcac-4f89-ae4c-9cc4e502e3d7', '2023-05-29 18:15:00', 'BLOCK_ENTRY', '2023-05-29 18:15:00', '9e07ad33-45a7-48c2-80e0-25e839192af2');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('9b99eb74-7b84-4a39-89da-88096d4e8794', '2023-05-29 21:30:00', 'SOLICIT_UNBLOCK', '2023-05-29 21:30:00', '1f2ab978-5b76-4c20-8c92-ae4e9f6e25d7');
+(id, created_at, "type", updated_at, device_id)
+VALUES('9b99eb74-7b84-4a39-89da-88096d4e8794', '2023-05-29 21:30:00', 'SOLICIT_UNBLOCK', '2023-05-29 21:30:00', '244cd95c-8a11-4026-9e10-d9683a504a79');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('c2083d72-0f26-4592-b4e4-8525f7a0a1e7', '2023-05-30 09:45:00', 'BLOCK_ENTRY', '2023-05-30 09:45:00', 'a8a11d01-ef85-4a76-9a87-af5d4b1f4b8c');
+(id, created_at, "type", updated_at, device_id)
+VALUES('c2083d72-0f26-4592-b4e4-8525f7a0a1e7', '2023-05-30 09:45:00', 'BLOCK_ENTRY', '2023-05-30 09:45:00', '21fcbda2-cac5-4d6c-b9f7-109e2eaeec34');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('f34335cc-0b9e-4d5c-98f3-73e7e0fc1289', '2023-05-30 14:00:00', 'SOLICIT_UNBLOCK', '2023-05-30 14:00:00', '74f1bca2-6a6b-4ef3-b0e4-591e9e5e8c52');
+(id, created_at, "type", updated_at, device_id)
+VALUES('f34335cc-0b9e-4d5c-98f3-73e7e0fc1289', '2023-05-30 14:00:00', 'SOLICIT_UNBLOCK', '2023-05-30 14:00:00', '3c434f1d-1929-4b9c-b288-65eb6697c84c');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('8c3df870-76c1-4f67-9be7-0d1e141b61e5', '2023-05-30 17:15:00', 'PHONE_TIME_EXCEEDED', '2023-05-30 17:15:00', '3c71218f-0214-4a17-9b6d-0c96cc5f83a4');
+(id, created_at, "type", updated_at, device_id)
+VALUES('8c3df870-76c1-4f67-9be7-0d1e141b61e5', '2023-05-30 17:15:00', 'PHONE_TIME_EXCEEDED', '2023-05-30 17:15:00', '9f6d1a8e-eb70-4185-86f1-168cb3347395');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('e6a4be3f-06c7-4a62-a5b5-41f9c9f86b61', '2023-05-30 20:30:00', 'BLOCK_ENTRY', '2023-05-30 20:30:00', 'bbd76f12-05b4-4c76-bd2f-d0191a4d5de9');
+(id, created_at, "type", updated_at, device_id)
+VALUES('e6a4be3f-06c7-4a62-a5b5-41f9c9f86b61', '2023-05-30 20:30:00', 'BLOCK_ENTRY', '2023-05-30 20:30:00', '4ebc51d3-1c14-4788-9125-9864b9397d44');
 
 INSERT INTO public.alerts
-(id, created_at, "type", updated_at, child_id)
-VALUES('7741a7e3-6be3-4b4b-ae37-11669945fb3b', '2023-05-30 23:45:00', 'SOLICIT_UNBLOCK', '2023-05-30 23:45:00', '1f2ab978-5b76-4c20-8c92-ae4e9f6e25d7');
+(id, created_at, "type", updated_at, device_id)
+VALUES('7741a7e3-6be3-4b4b-ae37-11669945fb3b', '2023-05-30 23:45:00', 'SOLICIT_UNBLOCK', '2023-05-30 23:45:00', 'd7a8691f-8f4d-407e-b7b9-ba2821f4813c');
 
 -- Apps --
 

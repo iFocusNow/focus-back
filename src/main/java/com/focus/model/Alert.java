@@ -23,16 +23,16 @@ public class Alert {
     @Column(name = "id", columnDefinition = "uuid", updatable = false)
     private UUID id;
     @ManyToOne
-    @JoinColumn(name = "child_id")
-    private Child child;
+    @JoinColumn(name = "device_id")
+    private Device device;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "alert_type")
     private AlertType type;
     private Timestamp created_at;
     private Timestamp updated_at;
 
-    public Alert(Child child, AlertType type, Timestamp created_at, Timestamp updated_at) {
-        this.child = child;
+    public Alert(Device device, AlertType type, Timestamp created_at, Timestamp updated_at) {
+        this.device = device;
         this.type = type;
         this.created_at = created_at;
         this.updated_at = updated_at;
