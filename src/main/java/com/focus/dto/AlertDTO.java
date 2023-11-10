@@ -12,4 +12,6 @@ public class AlertDTO {
     private UUID childId;
     private String childName;
     private String type;
+    private String deviceBrand;
+    private String deviceType;
 }

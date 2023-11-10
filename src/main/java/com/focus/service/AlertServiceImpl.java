@@ -41,7 +41,7 @@ public class AlertServiceImpl implements AlertService {
             for (Device device : devices) {
                 List<Alert> alerts = device.getAlerts();
                 for (Alert alert : alerts) {
-                    alertDTOs.add(new AlertDTO(child.getId(), child.getName(), alert.getType().toString()));
+                    alertDTOs.add(new AlertDTO(child.getId(), child.getName(), alert.getType().toString(), device.getBrand(), device.getType().toString()));
                 }
             }
         }
