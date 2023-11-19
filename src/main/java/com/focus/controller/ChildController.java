@@ -54,38 +54,48 @@ public class ChildController {
         // Update timestamp in child
         newChild.setUpdated_at(timestamp);
 
-        List<Device> devices = deviceService.getDevices(child_id);
-        List<Device> newDevices = child.getDevices();
+        // try catch devices
 
-        // Update child's devices list
-        for (Device updates: newDevices){
-            for (Device existing: devices){
-                if(existing.getId().equals(updates.getId())){
-                    existing.setBrand(updates.getBrand());
-                    break;
+        try {
+            // If there are no devices, then do nothing
+            List<Device> devices = deviceService.getDevices(child_id);
+
+            List<Device> newDevices = child.getDevices();
+
+            // Update child's devices list
+            for (Device updates: newDevices){
+                for (Device existing: devices){
+                    if(existing.getId().equals(updates.getId())){
+                        existing.setBrand(updates.getBrand());
+                        break;
+                    }
                 }
             }
-        }
 
-        // Replace old devices with updated devices
-        List<UUID> updatedDeviceIds = new ArrayList<>();
-        for (Device updatedDevice : child.getDevices()) {
-            updatedDeviceIds.add(updatedDevice.getId());
-        }
-
-        // Delete devices that are not in the updated list
-        for (Device existingDevice : devices) {
-            if (!updatedDeviceIds.contains(existingDevice.getId())) {
-                deviceService.delete(existingDevice.getId(), true);
+            // Replace old devices with updated devices
+            List<UUID> updatedDeviceIds = new ArrayList<>();
+            for (Device updatedDevice : child.getDevices()) {
+                updatedDeviceIds.add(updatedDevice.getId());
             }
+
+            // Delete devices that are not in the updated list
+            for (Device existingDevice : devices) {
+                if (!updatedDeviceIds.contains(existingDevice.getId())) {
+                    deviceService.delete(existingDevice.getId(), true);
+                }
+            }
+        } catch (Exception e) {
+            // Save the updated Child
+            Child updateChild = childService.save(newChild);
+            // Get the updated Child with DTO
+            ChildEditDTO childEditDTO =childService.listChildDTO(updateChild.getId());
+            return new ResponseEntity<>(childEditDTO, HttpStatus.OK);
         }
 
         // Save the updated Child
         Child updateChild = childService.save(newChild);
-
         // Get the updated Child with DTO
         ChildEditDTO childEditDTO =childService.listChildDTO(updateChild.getId());
-
         return new ResponseEntity<>(childEditDTO, HttpStatus.OK);
     }
 

@@ -129,21 +129,17 @@ public class ChildServiceImpl implements ChildService{
             for (Link link: links) {
                 linkRepository.deleteById(link.getId());
             }
+
+            List<Alert> alerts = alertRepository.findAllByDevice(device.getId());
+            for (Alert alert: alerts) {
+                alertRepository.deleteById(alert.getId());
+            }
         }
 
         try {
             deviceRepository.deleteAll(devices);
         } catch (Exception e) {
             throw new ResolutionException("Error while deleting devices: ", e);
-        }
-
-        List<Alert> alerts = alertRepository.findAllByChild(id);
-        try {
-            for (Alert alert: alerts) {
-                alertRepository.deleteById(alert.getId());
-            }
-        } catch (Exception e) {
-            throw new ResolutionException("Error while deleting alerts: ", e);
         }
 
         try {
